@@ -1,15 +1,43 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import { ConnectedRouter } from "connected-react-router";
+import ModalProvider from "decentraland-dapps/dist/providers/ModalProvider";
+import WalletProvider from "decentraland-dapps/dist/providers/WalletProvider";
+import ToastProvider from "decentraland-dapps/dist/providers/ToastProvider";
+import TranslationProvider from "decentraland-dapps/dist/providers/TranslationProvider";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+// import './modules/analytics/track'
+// import './modules/analytics/rollbar'
+
+// import './setup'
+import "./themes";
+
+import { store, history } from "./modules/store";
+import { Routes } from "./components/Routes";
+import * as locales from "./locales";
+import * as modals from "./components/Modals";
+
+import "./index.css";
+
+import reportWebVitals from "./reportWebVitals";
+
+const component = (
+  <Provider store={store}>
+    <TranslationProvider locales={Object.keys(locales)}>
+      <ToastProvider>
+        <WalletProvider>
+          <ModalProvider components={modals}>
+            <ConnectedRouter history={history}>
+              <Routes />
+            </ConnectedRouter>
+          </ModalProvider>
+        </WalletProvider>
+      </ToastProvider>
+    </TranslationProvider>
+  </Provider>
 );
+
+ReactDOM.render(component, document.getElementById("root"));
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
