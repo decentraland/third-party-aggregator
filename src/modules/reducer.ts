@@ -8,6 +8,7 @@ import { transactionReducer as transaction } from "decentraland-dapps/dist/modul
 import { profileReducer as profile } from "decentraland-dapps/dist/modules/profile/reducer";
 import { modalReducer as modal } from "decentraland-dapps/dist/modules/modal/reducer";
 import { toastReducer as toast } from "decentraland-dapps/dist/modules/toast/reducer";
+import { thirdPartyReducer as thirdParty } from "./thirdParty/reducer";
 
 export const createRootReducer = (history: History) =>
   combineReducers({
@@ -19,6 +20,7 @@ export const createRootReducer = (history: History) =>
     modal,
     toast,
     router: connectRouter(history),
+    thirdParty,
   });
 
 export type RootState = ReturnType<ReturnType<typeof createRootReducer>>;

@@ -1,3 +1,25 @@
+import { connect } from "react-redux";
+import { Dispatch } from "redux";
+import { RootState } from "../../modules/reducer";
+import {
+  fetchThirdPartiesRequest,
+  FETCH_THIRD_PARTIES_REQUEST,
+} from "../../modules/thirdParty/action";
 import ThirdParties from "./ThirdParties";
+import { MapDispatchProps, MapStateProps } from "./ThirdParties.types";
+import { isLoadingType } from "decentraland-dapps/dist/modules/loading/selectors";
+import {
+  getLoading,
+  getThirdParties,
+} from "../../modules/thirdParty/selectors";
 
-export default ThirdParties;
+const mapState = (state: RootState): MapStateProps => ({
+  isLoading: isLoadingType(getLoading(state), FETCH_THIRD_PARTIES_REQUEST),
+  thirdParties: getThirdParties(state),
+});
+
+const mapDispatch = (dispatch: Dispatch): MapDispatchProps => ({
+  onFetchThirdParties: () => dispatch(fetchThirdPartiesRequest()),
+});
+
+export default connect(mapState, mapDispatch)(ThirdParties);
