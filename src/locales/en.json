@@ -8,6 +8,7 @@
     "urn": "URN",
     "name": "Name",
     "description": "Description",
+    "resolver": "Resolver",
     "slots": "Slots",
     "managers": "Managers",
     "submit": "Submit"

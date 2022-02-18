@@ -55,7 +55,7 @@ const CreateThirdParty = ({ isLoading, onSubmit }: Props) => {
           name="resolver"
           control={control}
           render={({ field }) => (
-            <Field label={t("create_third_party.description")} {...field} />
+            <Field label={t("create_third_party.resolver")} {...field} />
           )}
         />
         <Controller

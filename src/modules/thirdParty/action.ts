@@ -44,8 +44,10 @@ export const createThirdPartySuccess = (
     ...buildTransactionPayload(chainId, txHash, { createThirdParty }),
   });
 action(CREATE_THIRD_PARTY_SUCCESS, {});
-export const createThirdPartyFailure = (error: string) =>
-  action(CREATE_THIRD_PARTY_FAILURE, { error });
+export const createThirdPartyFailure = (
+  createThirdParty: CreateThirdParty,
+  error: string
+) => action(CREATE_THIRD_PARTY_FAILURE, { createThirdParty, error });
 
 export type CreateThirdPartyRequestAction = ReturnType<
   typeof createThirdPartyRequest

@@ -69,12 +69,14 @@ export function thirdPartyReducer(
     }
     case FETCH_TRANSACTION_SUCCESS: {
       const { transaction } = action.payload;
-      
+
       switch (transaction.actionType) {
         case CREATE_THIRD_PARTY_SUCCESS: {
           return {
             ...state,
-            loading: loadingReducer(state.loading, action),
+            loading: loadingReducer(state.loading, {
+              type: transaction.actionType,
+            }),
             error: null,
           };
         }

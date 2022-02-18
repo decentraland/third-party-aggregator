@@ -70,6 +70,6 @@ function* handleCreateThirdPartyRequest({
 
     yield put(createThirdPartySuccess(createThirdParty, chainId, txHash));
   } catch (e: any) {
-    yield put(createThirdPartyFailure(e.message));
+    yield put(createThirdPartyFailure(createThirdParty, e.message));
   }
 }
