@@ -6,10 +6,6 @@ import WalletProvider from "decentraland-dapps/dist/providers/WalletProvider";
 import ToastProvider from "decentraland-dapps/dist/providers/ToastProvider";
 import TranslationProvider from "decentraland-dapps/dist/providers/TranslationProvider";
 
-// import './modules/analytics/track'
-// import './modules/analytics/rollbar'
-
-// import './setup'
 import "./themes";
 
 import { store, history } from "./modules/store";
