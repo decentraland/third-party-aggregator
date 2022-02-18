@@ -1,0 +1,13 @@
+.CreateThirdParty .page-title {
+  display: flex;
+  align-items: center;
+  margin-bottom: 48px;
+}
+
+.CreateThirdParty .page-title .header {
+  margin: 0px;
+}
+
+.CreateThirdParty .page-title .back {
+  margin-right: 1rem;
+}

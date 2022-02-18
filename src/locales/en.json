@@ -1,5 +1,15 @@
 {
   "third_parties": {
-    "header": "Third Parties"
+    "header": "Third Parties",
+    "create_button": "Create"
+  },
+  "create_third_party": {
+    "header": "Create Third Party",
+    "urn": "URN",
+    "name": "Name",
+    "description": "Description",
+    "slots": "Slots",
+    "managers": "Managers",
+    "submit": "Submit"
   }
 }
