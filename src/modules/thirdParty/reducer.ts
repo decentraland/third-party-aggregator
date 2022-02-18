@@ -3,6 +3,16 @@ import {
   LoadingState,
 } from "decentraland-dapps/dist/modules/loading/reducer";
 import {
+  FetchTransactionSuccessAction,
+  FETCH_TRANSACTION_SUCCESS,
+} from "decentraland-dapps/dist/modules/transaction/actions";
+import {
+  CreateThirdPartyFailureAction,
+  CreateThirdPartyRequestAction,
+  CreateThirdPartySuccessAction,
+  CREATE_THIRD_PARTY_FAILURE,
+  CREATE_THIRD_PARTY_REQUEST,
+  CREATE_THIRD_PARTY_SUCCESS,
   FetchThirdPartiesFailureAction,
   FetchThirdPartiesRequestAction,
   FetchThirdPartiesSuccessAction,
@@ -27,13 +37,18 @@ const INITAL_STATE: ThirdPartyState = {
 type ThirdPartyReducerAction =
   | FetchThirdPartiesRequestAction
   | FetchThirdPartiesSuccessAction
-  | FetchThirdPartiesFailureAction;
+  | FetchThirdPartiesFailureAction
+  | CreateThirdPartyRequestAction
+  | CreateThirdPartySuccessAction
+  | CreateThirdPartyFailureAction
+  | FetchTransactionSuccessAction;
 
 export function thirdPartyReducer(
   state = INITAL_STATE,
   action: ThirdPartyReducerAction
 ): ThirdPartyState {
   switch (action.type) {
+    case CREATE_THIRD_PARTY_REQUEST:
     case FETCH_THIRD_PARTIES_REQUEST: {
       return {
         ...state,
@@ -52,6 +67,22 @@ export function thirdPartyReducer(
         error: null,
       };
     }
+    case FETCH_TRANSACTION_SUCCESS: {
+      const { transaction } = action.payload;
+      
+      switch (transaction.actionType) {
+        case CREATE_THIRD_PARTY_SUCCESS: {
+          return {
+            ...state,
+            loading: loadingReducer(state.loading, action),
+            error: null,
+          };
+        }
+        default:
+          return state;
+      }
+    }
+    case CREATE_THIRD_PARTY_FAILURE:
     case FETCH_THIRD_PARTIES_FAILURE: {
       const { error } = action.payload;
       return {

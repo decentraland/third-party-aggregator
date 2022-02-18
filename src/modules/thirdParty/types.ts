@@ -8,11 +8,19 @@ export type ThirdParty = {
   totalItems: string;
   root: string;
   consumedSlots: string;
-  metadata: Metadata
+  metadata: Metadata;
 };
 
 export type Metadata = {
   id: string;
   name: string;
   description: string;
+};
+
+export type CreateThirdParty = {
+  urn: string;
+  metadata: string;
+  resolver: string;
+  managers: string[];
+  slots: string;
 };

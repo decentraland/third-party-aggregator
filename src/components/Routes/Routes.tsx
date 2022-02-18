@@ -1,6 +1,6 @@
 import { Switch, Route, Redirect } from "react-router-dom";
 import { locations } from "../../modules/locations";
-import CreateThirdParty from "../CreateThirdParty/CreateThirdParty";
+import CreateThirdParty from "../CreateThirdParty";
 import { SignInPage } from "../SignIn";
 import ThirdParties from "../ThirdParties";
 import { Props } from "./Routes.types";

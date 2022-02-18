@@ -2,25 +2,24 @@ import React from "react";
 import { Back, Button, Field, Header } from "decentraland-ui";
 import { t } from "decentraland-dapps/dist/modules/translation/utils";
 import { Link } from "react-router-dom";
+import { Controller, useForm } from "react-hook-form";
 import Page from "../Page";
-import { Props } from "./CreateThirdParty.types";
+import { CreateThirdPartyFormData, Props } from "./CreateThirdParty.types";
 import { locations } from "../../modules/locations";
 
 import "./CreateThirdParty.css";
-import { Controller, useForm } from "react-hook-form";
 
-const CreateThirdParty = ({}: Props) => {
-  const { control, handleSubmit } = useForm({
+const CreateThirdParty = ({ isLoading, onSubmit }: Props) => {
+  const { control, handleSubmit } = useForm<CreateThirdPartyFormData>({
     defaultValues: {
       urn: "",
       name: "",
       description: "",
+      resolver: "",
       slots: "",
       managers: "",
     },
   });
-
-  const onSubmit = (data: any) => console.log(data);
 
   return (
     <Page className="CreateThirdParty">
@@ -53,6 +52,13 @@ const CreateThirdParty = ({}: Props) => {
           )}
         />
         <Controller
+          name="resolver"
+          control={control}
+          render={({ field }) => (
+            <Field label={t("create_third_party.description")} {...field} />
+          )}
+        />
+        <Controller
           name="slots"
           control={control}
           render={({ field }) => (
@@ -70,7 +76,9 @@ const CreateThirdParty = ({}: Props) => {
             <Field label={t("create_third_party.managers")} {...field} />
           )}
         />
-        <Button type="submit" primary>{t("create_third_party.submit")}</Button>
+        <Button type="submit" primary disabled={isLoading} loading={isLoading}>
+          {t("create_third_party.submit")}
+        </Button>
       </form>
     </Page>
   );
