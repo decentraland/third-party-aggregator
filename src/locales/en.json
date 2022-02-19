@@ -5,7 +5,6 @@
   },
   "create_third_party": {
     "header": "Create Third Party",
-    "urn": "URN",
     "name": "Name",
     "description": "Description",
     "resolver": "Resolver",

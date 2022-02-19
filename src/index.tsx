@@ -6,16 +6,14 @@ import WalletProvider from "decentraland-dapps/dist/providers/WalletProvider";
 import ToastProvider from "decentraland-dapps/dist/providers/ToastProvider";
 import TranslationProvider from "decentraland-dapps/dist/providers/TranslationProvider";
 
-import "./themes";
-
 import { store, history } from "./modules/store";
 import { Routes } from "./components/Routes";
 import * as locales from "./locales";
 import * as modals from "./components/Modals";
+import reportWebVitals from "./reportWebVitals";
 
 import "./index.css";
-
-import reportWebVitals from "./reportWebVitals";
+import "./themes";
 
 const component = (
   <Provider store={store}>

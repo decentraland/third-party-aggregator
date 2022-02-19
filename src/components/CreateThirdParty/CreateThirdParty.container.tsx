@@ -1,3 +1,5 @@
+import { getChainName, Network } from "@dcl/schemas";
+import { getChainIdByNetwork } from "decentraland-dapps/dist/lib/eth";
 import { isLoadingType } from "decentraland-dapps/dist/modules/loading/selectors";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
@@ -13,11 +15,12 @@ import { toCreateThirdParty } from "./utils";
 
 const mapState = (state: RootState): MapStateProps => ({
   isLoading: isLoadingType(getLoading(state), CREATE_THIRD_PARTY_REQUEST),
+  chainName: getChainName(getChainIdByNetwork(Network.MATIC))!,
 });
 
 const mapDispatch = (dispatch: Dispatch): MapDispatchProps => ({
-  onSubmit: (data) =>
-    dispatch(createThirdPartyRequest(toCreateThirdParty(data))),
+  onSubmit: (data, chainName) =>
+    dispatch(createThirdPartyRequest(toCreateThirdParty(data, chainName))),
 });
 
 export default connect(mapState, mapDispatch)(CreateThirdParty);
