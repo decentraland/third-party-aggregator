@@ -21,8 +21,8 @@
   },
   "third_party_created_modal": {
     "header": "Third Party Created",
-    "content": "It will be displayed in the third party list page.",
-    "button_left": "Continue creating",
-    "button_right": "View Third Parties"
+    "content": "The third party named {name} has been created. It will be displayed in the third party list page.",
+    "button_left": "Create another",
+    "button_right": "View third parties"
   }
 }

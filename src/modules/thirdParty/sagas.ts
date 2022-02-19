@@ -82,7 +82,12 @@ function* handleCreateThirdPartyRequest({
 }
 
 function* handleFetchTransactionSuccess(action: FetchTransactionSuccessAction) {
-  if (action.payload.transaction.actionType === CREATE_THIRD_PARTY_SUCCESS) {
-    yield put(openModal("ThirdPartyCreatedModal"));
+  const { transaction } = action.payload;
+  if (transaction.actionType === CREATE_THIRD_PARTY_SUCCESS) {
+    yield put(
+      openModal("ThirdPartyCreatedModal", {
+        createThirdParty: transaction.payload.createThirdParty,
+      })
+    );
   }
 }
