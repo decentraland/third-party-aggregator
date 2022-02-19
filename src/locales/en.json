@@ -18,5 +18,11 @@
     "required_valid_address_prev": "An empty address",
     "required_valid_address_post": "is not a valid ethereum address",
     "required_no_repeated_address_post": "is duplicated"
+  },
+  "third_party_created_modal": {
+    "header": "Third Party Created",
+    "content": "It will be displayed in the third party list page.",
+    "button_left": "Continue creating",
+    "button_right": "View Third Parties"
   }
 }
