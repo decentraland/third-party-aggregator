@@ -10,6 +10,13 @@
     "resolver": "Resolver",
     "slots": "Slots",
     "managers": "Managers",
-    "submit": "Submit"
+    "submit": "Submit",
+    "required": "Required",
+    "required_valid_url": "A valid URL is required. Eg: https://some-resolver.io",
+    "required_positive": "Must be a positive number",
+    "required_addresses": "A list of comma separated addresses is required",
+    "required_valid_address_prev": "An empty address",
+    "required_valid_address_post": "is not a valid ethereum address",
+    "required_no_repeated_address_post": "is duplicated"
   }
 }
