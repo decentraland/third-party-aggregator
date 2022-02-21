@@ -17,7 +17,8 @@
     "required_addresses": "A list of comma separated addresses is required",
     "required_valid_address_prev": "An empty address",
     "required_valid_address_post": "is not a valid ethereum address",
-    "required_no_repeated_address_post": "is duplicated"
+    "required_no_repeated_address_post": "is duplicated",
+    "required_no_colon_allowed": "The `:` character is not allowed"
   },
   "third_party_created_modal": {
     "header": "Third Party Created",

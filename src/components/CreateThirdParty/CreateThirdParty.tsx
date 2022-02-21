@@ -39,6 +39,11 @@ const CreateThirdParty = ({ chainName, isLoading, onSubmit }: Props) => {
               value: true,
               message: t("create_third_party.required"),
             },
+            validate: (value: string) => {
+              if (value.includes(":")) {
+                return t("create_third_party.required_no_colon_allowed");
+              }
+            },
           }}
           control={control}
           render={({ field, fieldState }) => (
@@ -60,6 +65,11 @@ const CreateThirdParty = ({ chainName, isLoading, onSubmit }: Props) => {
             required: {
               value: true,
               message: t("create_third_party.required"),
+            },
+            validate: (value: string) => {
+              if (value.includes(":")) {
+                return t("create_third_party.required_no_colon_allowed");
+              }
             },
           }}
           render={({ field, fieldState }) => (
@@ -133,7 +143,9 @@ const CreateThirdParty = ({ chainName, isLoading, onSubmit }: Props) => {
                 const address = addresses[i];
 
                 if (set.has(address)) {
-                  return `"${address}" ${t("create_third_party.required_no_repeated_address_post")}`;
+                  return `"${address}" ${t(
+                    "create_third_party.required_no_repeated_address_post"
+                  )}`;
                 }
 
                 set.add(address);
