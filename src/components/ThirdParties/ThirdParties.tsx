@@ -26,7 +26,7 @@ const ThirdParties = ({
         </Link>
       </div>
       {isLoading ? (
-        <Loader active size="big"/>
+        <Loader active size="big" />
       ) : (
         thirdParties.map((tp) => (
           <div key={tp.id}>
