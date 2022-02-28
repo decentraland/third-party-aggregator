@@ -1,7 +1,10 @@
 {
   "third_parties": {
     "header": "Third Parties",
-    "create_button": "Create"
+    "create_button": "Create",
+    "name": "Name",
+    "max_items": "Total Slots",
+    "consumed_slots": "Consumed Slots"
   },
   "create_third_party": {
     "header": "Create Third Party",

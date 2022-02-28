@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Button, Header, Loader } from "decentraland-ui";
+import { Button, Header, Loader, Table } from "decentraland-ui";
 import { t } from "decentraland-dapps/dist/modules/translation/utils";
 import { Link } from "react-router-dom";
 import Page from "../Page";
@@ -28,22 +28,28 @@ const ThirdParties = ({
       {isLoading ? (
         <Loader active size="big" />
       ) : (
-        thirdParties.map((tp) => (
-          <div key={tp.id}>
-            <div>
-              <b>{tp.id}</b>
-            </div>
-            <div>Raw Metadata: {tp.rawMetadata}</div>
-            <div>Consumed Slots: {tp.consumedSlots}</div>
-            <div>Approved: {tp.isApproved.toString()}</div>
-            <div>Managers:</div>
-            <ul>
-              {tp.managers.map((m) => (
-                <li key={m}>{m}</li>
-              ))}
-            </ul>
-          </div>
-        ))
+        <Table basic="very">
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell>{t("third_parties.name")}</Table.HeaderCell>
+              <Table.HeaderCell>
+                {t("third_parties.max_items")}
+              </Table.HeaderCell>
+              <Table.HeaderCell>
+                {t("third_parties.consumed_slots")}
+              </Table.HeaderCell>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            {thirdParties.map((tp) => (
+              <Table.Row key={tp.id}>
+                <Table.Cell>{tp.metadata.name}</Table.Cell>
+                <Table.Cell>{tp.maxItems}</Table.Cell>
+                <Table.Cell>{tp.consumedSlots}</Table.Cell>
+              </Table.Row>
+            ))}
+          </Table.Body>
+        </Table>
       )}
     </Page>
   );

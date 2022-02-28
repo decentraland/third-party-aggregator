@@ -6,6 +6,10 @@ import { Network } from "@dcl/schemas";
 import { ContractName, getContract } from "decentraland-transactions";
 import { openModal } from "decentraland-dapps/dist/modules/modal/actions";
 import {
+  FetchTransactionSuccessAction,
+  FETCH_TRANSACTION_SUCCESS,
+} from "decentraland-dapps/dist/modules/transaction/actions";
+import {
   createThirdPartyFailure,
   CreateThirdPartyRequestAction,
   createThirdPartySuccess,
@@ -17,10 +21,7 @@ import {
   FETCH_THIRD_PARTIES_REQUEST,
 } from "./action";
 import { ThirdParty } from "./types";
-import {
-  FetchTransactionSuccessAction,
-  FETCH_TRANSACTION_SUCCESS,
-} from "decentraland-dapps/dist/modules/transaction/actions";
+import { parseMetadata } from "./utils";
 
 const TPR_SUBGRAPH = process.env.REACT_APP_TPR_SUBGRAPH!;
 
@@ -55,7 +56,22 @@ function* handleFetchThirdPartiesRequest(
       thirdPartiesQuery
     );
 
-    yield put(fetchThirdPartiesSuccess(thirdPartiesResult.thirdParties));
+    yield put(
+      fetchThirdPartiesSuccess(
+        thirdPartiesResult.thirdParties.map((tp) => {
+          const { name, description } = parseMetadata(tp.rawMetadata);
+
+          return {
+            ...tp,
+            metadata: {
+              name,
+              description,
+              id: tp.id,
+            },
+          };
+        })
+      )
+    );
   } catch (e: any) {
     yield put(fetchThirdPartiesFailure(e.message));
   }
