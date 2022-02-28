@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Button, Header, Loader, Table } from "decentraland-ui";
+import { Button, Header, Loader, Popup, Table } from "decentraland-ui";
 import { t } from "decentraland-dapps/dist/modules/translation/utils";
 import { Link } from "react-router-dom";
 import Page from "../Page";
@@ -38,6 +38,7 @@ const ThirdParties = ({
               <Table.HeaderCell>
                 {t("third_parties.consumed_slots")}
               </Table.HeaderCell>
+              <Table.HeaderCell />
             </Table.Row>
           </Table.Header>
           <Table.Body>
@@ -46,6 +47,16 @@ const ThirdParties = ({
                 <Table.Cell>{tp.metadata.name}</Table.Cell>
                 <Table.Cell>{tp.maxItems}</Table.Cell>
                 <Table.Cell>{tp.consumedSlots}</Table.Cell>
+                <Table.Cell textAlign="right">
+                  <Popup
+                    content={t("third_parties.edit")}
+                    trigger={
+                      <Link to={locations.updateThirdParty(tp.id)}>
+                        <Button icon="edit" basic></Button>
+                      </Link>
+                    }
+                  ></Popup>
+                </Table.Cell>
               </Table.Row>
             ))}
           </Table.Body>

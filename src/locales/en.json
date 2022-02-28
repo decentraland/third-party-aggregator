@@ -4,7 +4,8 @@
     "create_button": "Create",
     "name": "Name",
     "max_items": "Total Slots",
-    "consumed_slots": "Consumed Slots"
+    "consumed_slots": "Consumed Slots",
+    "edit": "Update"
   },
   "create_third_party": {
     "header": "Create Third Party",
