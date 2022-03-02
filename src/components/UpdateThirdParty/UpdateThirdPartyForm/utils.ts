@@ -1,5 +1,8 @@
-import { ThirdParty, UpdateThirdParty } from "../../modules/thirdParty/types";
-import { UpdateThirdPartyFormData } from "./UpdateThirdParty.types";
+import {
+  ThirdParty,
+  UpdateThirdParty,
+} from "../../../modules/thirdParty/types";
+import { UpdateThirdPartyFormData } from "./UpdateThirdPartyForm.types";
 
 export const toUpdateThirdParty = (
   previous: ThirdParty,
