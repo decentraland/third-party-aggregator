@@ -1,2 +1,2 @@
-export { default as TestModal } from "./TestModal";
 export { default as ThirdPartyCreatedModal } from "./ThirdPartyCreatedModal";
+export { default as ThirdPartyUpdatedModal } from "./ThirdPartyUpdatedModal";

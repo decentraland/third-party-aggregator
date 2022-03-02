@@ -24,10 +24,33 @@
     "required_no_repeated_address_post": "is duplicated",
     "required_no_colon_allowed": "The `:` character is not allowed"
   },
+  "update_third_party": {
+    "header": "Update Third Party",
+    "name": "Name",
+    "description": "Description",
+    "resolver": "Resolver",
+    "slots": "Add Slots",
+    "available_slots": "Available slots {v}",
+    "managers": "Managers",
+    "submit": "Submit",
+    "required": "Required",
+    "required_valid_url": "A valid URL is required. Eg: https://some-resolver.io",
+    "required_positive": "Must be a positive number",
+    "required_addresses": "A list of comma separated addresses is required",
+    "required_valid_address_prev": "An empty address",
+    "required_valid_address_post": "is not a valid ethereum address",
+    "required_no_repeated_address_post": "is duplicated",
+    "required_no_colon_allowed": "The `:` character is not allowed"
+  },
   "third_party_created_modal": {
     "header": "Third Party Created",
     "content": "The third party named {name} has been created. It will be displayed in the third party list page.",
     "button_left": "Create another",
+    "button_right": "View third parties"
+  },
+  "third_party_updated_modal": {
+    "header": "Third Party Updated",
+    "content": "The third party named {name} has been updated. The new values will be displayed in the third party list page.",
     "button_right": "View third parties"
   }
 }

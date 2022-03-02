@@ -8,6 +8,7 @@ import { toastSaga } from "decentraland-dapps/dist/modules/toast/sagas";
 import { modalSaga } from "./modal/sagas";
 import { locationSaga } from "./location/sagas";
 import { thirdPartySagas } from "./thirdParty/sagas";
+import { routingSagas } from "./routing/sagas";
 import * as translations from "../locales";
 
 export const TRANSACTIONS_API_URL = process.env.REACT_APP_TRANSACTIONS_API_URL!;
@@ -36,6 +37,7 @@ export function* rootSaga() {
     modalSaga(),
     locationSaga(),
     toastSaga(),
-    thirdPartySagas()
+    thirdPartySagas(),
+    routingSagas(),
   ]);
 }

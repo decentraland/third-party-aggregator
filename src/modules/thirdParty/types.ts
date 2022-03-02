@@ -24,3 +24,12 @@ export type CreateThirdParty = {
   managers: string[];
   slots: string;
 };
+
+export type UpdateThirdParty = {
+  urn: string;
+  metadata: string;
+  resolver: string;
+  managers: string[];
+  managerValues: boolean[];
+  slots: string;
+};

@@ -4,5 +4,6 @@ export const locations = {
   settings: () => "/settings",
   thirdParties: () => "/thirdParties",
   createThirdParty: () => "/thirdParties/create",
-  updateThirdParty: (tpId: string) => `/thirdParties/${tpId}/update`,
+  updateThirdParty: (tpId?: string) =>
+    `/thirdParties/${tpId ?? ":tpId"}/update`,
 };

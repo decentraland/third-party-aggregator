@@ -19,6 +19,11 @@ import {
   FetchThirdPartiesRequestAction,
   fetchThirdPartiesSuccess,
   FETCH_THIRD_PARTIES_REQUEST,
+  updateThirdPartyFailure,
+  UpdateThirdPartyRequestAction,
+  updateThirdPartySuccess,
+  UPDATE_THIRD_PARTY_REQUEST,
+  UPDATE_THIRD_PARTY_SUCCESS,
 } from "./action";
 import { ThirdParty } from "./types";
 import { parseMetadata } from "./utils";
@@ -28,6 +33,7 @@ const TPR_SUBGRAPH = process.env.REACT_APP_TPR_SUBGRAPH!;
 export function* thirdPartySagas() {
   yield takeEvery(FETCH_THIRD_PARTIES_REQUEST, handleFetchThirdPartiesRequest);
   yield takeEvery(CREATE_THIRD_PARTY_REQUEST, handleCreateThirdPartyRequest);
+  yield takeEvery(UPDATE_THIRD_PARTY_REQUEST, handleUpdateThirdPartyRequest);
   yield takeEvery(FETCH_TRANSACTION_SUCCESS, handleFetchTransactionSuccess);
 }
 
@@ -97,13 +103,45 @@ function* handleCreateThirdPartyRequest({
   }
 }
 
+function* handleUpdateThirdPartyRequest({
+  payload: { updateThirdParty },
+}: UpdateThirdPartyRequestAction) {
+  try {
+    const chainId = getChainIdByNetwork(Network.MATIC);
+    const contractName = ContractName.ThirdPartyRegistry;
+    const contract = getContract(contractName, chainId);
+
+    const { urn, metadata, resolver, managers, managerValues, slots } =
+      updateThirdParty;
+
+    const txHash: string = yield call(sendTransaction, contract, (tpr) =>
+      tpr.updateThirdParties([
+        [urn, metadata, resolver, managers, managerValues, slots],
+      ])
+    );
+
+    yield put(updateThirdPartySuccess(updateThirdParty, chainId, txHash));
+  } catch (e: any) {
+    yield put(updateThirdPartyFailure(updateThirdParty, e.message));
+  }
+}
+
 function* handleFetchTransactionSuccess(action: FetchTransactionSuccessAction) {
   const { transaction } = action.payload;
-  if (transaction.actionType === CREATE_THIRD_PARTY_SUCCESS) {
-    yield put(
-      openModal("ThirdPartyCreatedModal", {
-        createThirdParty: transaction.payload.createThirdParty,
-      })
-    );
+
+  switch (transaction.actionType) {
+    case CREATE_THIRD_PARTY_SUCCESS:
+      yield put(
+        openModal("ThirdPartyCreatedModal", {
+          createThirdParty: transaction.payload.createThirdParty,
+        })
+      );
+      break;
+    case UPDATE_THIRD_PARTY_SUCCESS:
+      yield put(
+        openModal("ThirdPartyUpdatedModal", {
+          updateThirdParty: transaction.payload.updateThirdParty,
+        })
+      );
   }
 }

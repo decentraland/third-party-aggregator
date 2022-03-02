@@ -3,6 +3,7 @@ import { locations } from "../../modules/locations";
 import CreateThirdParty from "../CreateThirdParty";
 import { SignInPage } from "../SignIn";
 import ThirdParties from "../ThirdParties";
+import UpdateThirdParty from "../UpdateThirdParty";
 import { Props } from "./Routes.types";
 
 const Routes = ({ isConnected }: Props) => (
@@ -24,6 +25,11 @@ const Routes = ({ isConnected }: Props) => (
             exact
             path={locations.createThirdParty()}
             component={CreateThirdParty}
+          />
+          <Route
+            exact
+            path={locations.updateThirdParty()}
+            component={UpdateThirdParty}
           />
           <Redirect to={locations.thirdParties()} />
         </>

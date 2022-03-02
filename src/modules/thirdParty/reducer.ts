@@ -19,6 +19,12 @@ import {
   FETCH_THIRD_PARTIES_FAILURE,
   FETCH_THIRD_PARTIES_REQUEST,
   FETCH_THIRD_PARTIES_SUCCESS,
+  UpdateThirdPartyFailureAction,
+  UpdateThirdPartyRequestAction,
+  UpdateThirdPartySuccessAction,
+  UPDATE_THIRD_PARTY_FAILURE,
+  UPDATE_THIRD_PARTY_REQUEST,
+  UPDATE_THIRD_PARTY_SUCCESS,
 } from "./action";
 import { ThirdParty } from "./types";
 
@@ -41,6 +47,9 @@ type ThirdPartyReducerAction =
   | CreateThirdPartyRequestAction
   | CreateThirdPartySuccessAction
   | CreateThirdPartyFailureAction
+  | UpdateThirdPartyRequestAction
+  | UpdateThirdPartySuccessAction
+  | UpdateThirdPartyFailureAction
   | FetchTransactionSuccessAction;
 
 export function thirdPartyReducer(
@@ -49,6 +58,7 @@ export function thirdPartyReducer(
 ): ThirdPartyState {
   switch (action.type) {
     case CREATE_THIRD_PARTY_REQUEST:
+    case UPDATE_THIRD_PARTY_REQUEST:
     case FETCH_THIRD_PARTIES_REQUEST: {
       return {
         ...state,
@@ -71,6 +81,7 @@ export function thirdPartyReducer(
       const { transaction } = action.payload;
 
       switch (transaction.actionType) {
+        case UPDATE_THIRD_PARTY_SUCCESS:
         case CREATE_THIRD_PARTY_SUCCESS: {
           return {
             ...state,
@@ -85,6 +96,7 @@ export function thirdPartyReducer(
       }
     }
     case CREATE_THIRD_PARTY_FAILURE:
+    case UPDATE_THIRD_PARTY_FAILURE:
     case FETCH_THIRD_PARTIES_FAILURE: {
       const { error } = action.payload;
       return {

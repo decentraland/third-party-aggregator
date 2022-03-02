@@ -1,7 +1,7 @@
 import { ChainId } from "@dcl/schemas";
 import { buildTransactionPayload } from "decentraland-dapps/dist/modules/transaction/utils";
 import { action } from "typesafe-actions";
-import { CreateThirdParty, ThirdParty } from "./types";
+import { CreateThirdParty, ThirdParty, UpdateThirdParty } from "./types";
 
 // Fetch third parties
 
@@ -57,4 +57,37 @@ export type CreateThirdPartySuccessAction = ReturnType<
 >;
 export type CreateThirdPartyFailureAction = ReturnType<
   typeof createThirdPartyFailure
+>;
+
+// Update third party
+
+export const UPDATE_THIRD_PARTY_REQUEST = "[Request] Update third party";
+export const UPDATE_THIRD_PARTY_SUCCESS = "[Success] Update third party";
+export const UPDATE_THIRD_PARTY_FAILURE = "[Failure] Update third party";
+
+export const updateThirdPartyRequest = (updateThirdParty: UpdateThirdParty) =>
+  action(UPDATE_THIRD_PARTY_REQUEST, { updateThirdParty });
+export const updateThirdPartySuccess = (
+  updateThirdParty: UpdateThirdParty,
+  chainId: ChainId,
+  txHash: string
+) =>
+  action(UPDATE_THIRD_PARTY_SUCCESS, {
+    updateThirdParty,
+    ...buildTransactionPayload(chainId, txHash, { updateThirdParty }),
+  });
+action(UPDATE_THIRD_PARTY_SUCCESS, {});
+export const updateThirdPartyFailure = (
+  updateThirdParty: UpdateThirdParty,
+  error: string
+) => action(UPDATE_THIRD_PARTY_FAILURE, { updateThirdParty, error });
+
+export type UpdateThirdPartyRequestAction = ReturnType<
+  typeof updateThirdPartyRequest
+>;
+export type UpdateThirdPartySuccessAction = ReturnType<
+  typeof updateThirdPartySuccess
+>;
+export type UpdateThirdPartyFailureAction = ReturnType<
+  typeof updateThirdPartyFailure
 >;

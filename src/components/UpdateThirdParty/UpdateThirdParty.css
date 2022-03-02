@@ -1,0 +1,19 @@
+.UpdateThirdParty .page-title {
+  display: flex;
+  align-items: center;
+  margin-bottom: 48px;
+}
+
+.UpdateThirdParty .page-title .header {
+  margin: 0px;
+}
+
+.UpdateThirdParty .page-title .back {
+  margin-right: 1rem;
+}
+
+.UpdateThirdParty .form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}

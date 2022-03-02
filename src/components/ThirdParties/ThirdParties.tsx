@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Button, Header, Loader, Popup, Table } from "decentraland-ui";
 import { t } from "decentraland-dapps/dist/modules/translation/utils";
 import { Link } from "react-router-dom";
@@ -8,15 +8,7 @@ import { locations } from "../../modules/locations";
 
 import "./ThirdParties.css";
 
-const ThirdParties = ({
-  thirdParties,
-  isLoading,
-  onFetchThirdParties,
-}: Props) => {
-  useEffect(() => {
-    onFetchThirdParties();
-  }, [onFetchThirdParties]);
-
+const ThirdParties = ({ thirdParties, isLoading }: Props) => {
   return (
     <Page className="ThirdParties">
       <div className="page-title">
