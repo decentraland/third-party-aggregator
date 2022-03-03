@@ -1,0 +1,14 @@
+.ManagersField > .managers-input {
+  display: flex;
+  align-items: center;
+}
+
+.ManagersField > .managers-input > *:first-child {
+  flex: 1;
+  margin-right: 1rem;
+}
+
+.ManagersField > .managers-address {
+  display: flex;
+  align-items: center;
+}

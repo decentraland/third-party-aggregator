@@ -13,15 +13,11 @@
     "description": "Description",
     "resolver": "Resolver",
     "slots": "Slots",
-    "managers": "Managers",
     "submit": "Submit",
     "required": "Required",
+    "required_manager": "At least one manager is required",
     "required_valid_url": "A valid URL is required. Eg: https://some-resolver.io",
     "required_positive": "Must be a positive number",
-    "required_addresses": "A list of comma separated addresses is required",
-    "required_valid_address_prev": "An empty address",
-    "required_valid_address_post": "is not a valid ethereum address",
-    "required_no_repeated_address_post": "is duplicated",
     "required_no_colon_allowed": "The `:` character is not allowed"
   },
   "update_third_party": {
@@ -34,13 +30,17 @@
     "managers": "Managers",
     "submit": "Submit",
     "required": "Required",
+    "required_manager": "At least one manager is required",
     "required_valid_url": "A valid URL is required. Eg: https://some-resolver.io",
     "required_positive": "Must be a positive number",
-    "required_addresses": "A list of comma separated addresses is required",
-    "required_valid_address_prev": "An empty address",
-    "required_valid_address_post": "is not a valid ethereum address",
-    "required_no_repeated_address_post": "is duplicated",
     "required_no_colon_allowed": "The `:` character is not allowed"
+  },
+  "managers_field": {
+    "label": "Managers",
+    "action": "Add",
+    "required": "Cannot add an empty address",
+    "required_not_duplicated": "Already a manager",
+    "required_valid_address": "Not a valid ethereum address"
   },
   "third_party_created_modal": {
     "header": "Third Party Created",

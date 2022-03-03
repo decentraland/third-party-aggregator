@@ -7,6 +7,7 @@ import Page from "../Page";
 import { CreateThirdPartyFormData, Props } from "./CreateThirdParty.types";
 import { locations } from "../../modules/locations";
 import { getUrn } from "./utils";
+import ManagersField from "../ManagersField";
 import "./CreateThirdParty.css";
 
 const CreateThirdParty = ({ chainName, isLoading, onSubmit }: Props) => {
@@ -16,7 +17,7 @@ const CreateThirdParty = ({ chainName, isLoading, onSubmit }: Props) => {
       description: "",
       resolver: "",
       slots: "0",
-      managers: "",
+      managers: [],
     },
   });
 
@@ -131,41 +132,24 @@ const CreateThirdParty = ({ chainName, isLoading, onSubmit }: Props) => {
           name="managers"
           control={control}
           rules={{
-            validate: (value: string) => {
-              if (!value) {
-                return t("create_third_party.required_addresses");
-              }
-
-              const addresses = value.split(",");
-              const set = new Set<string>();
-
-              for (let i = 0; i < addresses.length; i++) {
-                const address = addresses[i];
-
-                if (set.has(address)) {
-                  return `"${address}" ${t(
-                    "create_third_party.required_no_repeated_address_post"
-                  )}`;
-                }
-
-                set.add(address);
-
-                if (!/^0x[a-fA-F0-9]{40}$/.test(address)) {
-                  return `${
-                    address
-                      ? `"${address}"`
-                      : t("create_third_party.required_valid_address_prev")
-                  } ${t("create_third_party.required_valid_address_post")}`;
-                }
+            validate: (managers) => {
+              if (managers.length === 0) {
+                return t("create_third_party.required_manager");
               }
             },
           }}
           render={({ field, fieldState }) => (
-            <Field
-              label={t("create_third_party.managers")}
-              {...field}
-              message={fieldState.error?.message}
-              error={fieldState.invalid}
+            <ManagersField
+              managers={field.value}
+              error={fieldState.error?.message}
+              onAdd={(address) =>
+                field.onChange({ target: { value: [...field.value, address] } })
+              }
+              onRemove={(address) =>
+                field.onChange({
+                  target: { value: field.value.filter((m) => m !== address) },
+                })
+              }
             />
           )}
         />

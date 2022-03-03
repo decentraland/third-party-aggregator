@@ -4,6 +4,7 @@ import { t } from "decentraland-dapps/dist/modules/translation/utils";
 import { Controller, useForm } from "react-hook-form";
 import { UpdateThirdPartyFormData, Props } from "./UpdateThirdPartyForm.types";
 import "./UpdateThirdPartyForm.css";
+import ManagersField from "../../ManagersField";
 
 const UpdateThirdPartyForm = ({
   thirdParty,
@@ -16,7 +17,7 @@ const UpdateThirdPartyForm = ({
       description: thirdParty?.metadata.description ?? "",
       resolver: thirdParty?.resolver ?? "",
       slots: "0",
-      managers: thirdParty?.managers ? thirdParty.managers.join(",") : "",
+      managers: thirdParty?.managers ?? [],
     },
   });
 
@@ -128,41 +129,24 @@ const UpdateThirdPartyForm = ({
         name="managers"
         control={control}
         rules={{
-          validate: (value: string) => {
-            if (!value) {
-              return t("update_third_party.required_addresses");
-            }
-
-            const addresses = value.split(",");
-            const set = new Set<string>();
-
-            for (let i = 0; i < addresses.length; i++) {
-              const address = addresses[i];
-
-              if (set.has(address)) {
-                return `"${address}" ${t(
-                  "update_third_party.required_no_repeated_address_post"
-                )}`;
-              }
-
-              set.add(address);
-
-              if (!/^0x[a-fA-F0-9]{40}$/.test(address)) {
-                return `${
-                  address
-                    ? `"${address}"`
-                    : t("update_third_party.required_valid_address_prev")
-                } ${t("update_third_party.required_valid_address_post")}`;
-              }
+          validate: (managers) => {
+            if (managers.length === 0) {
+              return t("update_third_party.required_manager");
             }
           },
         }}
         render={({ field, fieldState }) => (
-          <Field
-            label={t("update_third_party.managers")}
-            {...field}
-            message={fieldState.error?.message}
-            error={fieldState.invalid}
+          <ManagersField
+            managers={field.value}
+            error={fieldState.error?.message}
+            onAdd={(address) =>
+              field.onChange({ target: { value: [...field.value, address] } })
+            }
+            onRemove={(address) =>
+              field.onChange({
+                target: { value: field.value.filter((m) => m !== address) },
+              })
+            }
           />
         )}
       />

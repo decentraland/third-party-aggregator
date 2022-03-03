@@ -5,7 +5,7 @@ export type CreateThirdPartyFormData = {
   description: string;
   resolver: string;
   slots: string;
-  managers: string;
+  managers: string[];
 };
 
 export type Props = {

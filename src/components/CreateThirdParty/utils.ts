@@ -10,7 +10,7 @@ export const toCreateThirdParty = (
     urn: getUrn(data.name, chainName),
     resolver: data.resolver,
     slots: data.slots,
-    managers: data.managers.split(","),
+    managers: data.managers,
     metadata: `tp:1:${data.name}:${data.description}`,
   };
 };

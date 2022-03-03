@@ -14,7 +14,7 @@ export const toUpdateThirdParty = (
     managersMap.set(m, false);
   });
 
-  data.managers.split(",").forEach((m) => {
+  data.managers.forEach((m) => {
     managersMap.set(m, true);
   });
 
