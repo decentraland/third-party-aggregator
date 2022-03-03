@@ -3,7 +3,7 @@ import { put, select, takeEvery } from "redux-saga/effects";
 import { fetchThirdPartiesRequest } from "../thirdParty/action";
 import { getThirdPartiesMatch, getUpdateThirdPartyMatch } from "./selectors";
 
-export function* routingSagas() {
+export function* routingSaga() {
   yield takeEvery(LOCATION_CHANGE, handleLocationChange);
 }
 

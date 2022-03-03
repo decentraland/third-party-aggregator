@@ -4,17 +4,11 @@ import { getChainIdByNetwork } from "decentraland-dapps/dist/lib/eth";
 import { sendTransaction } from "decentraland-dapps/dist/modules/wallet/utils";
 import { Network } from "@dcl/schemas";
 import { ContractName, getContract } from "decentraland-transactions";
-import { openModal } from "decentraland-dapps/dist/modules/modal/actions";
-import {
-  FetchTransactionSuccessAction,
-  FETCH_TRANSACTION_SUCCESS,
-} from "decentraland-dapps/dist/modules/transaction/actions";
 import {
   createThirdPartyFailure,
   CreateThirdPartyRequestAction,
   createThirdPartySuccess,
   CREATE_THIRD_PARTY_REQUEST,
-  CREATE_THIRD_PARTY_SUCCESS,
   fetchThirdPartiesFailure,
   FetchThirdPartiesRequestAction,
   fetchThirdPartiesSuccess,
@@ -23,18 +17,16 @@ import {
   UpdateThirdPartyRequestAction,
   updateThirdPartySuccess,
   UPDATE_THIRD_PARTY_REQUEST,
-  UPDATE_THIRD_PARTY_SUCCESS,
 } from "./action";
 import { ThirdParty } from "./types";
 import { parseMetadata } from "./utils";
 
 const TPR_SUBGRAPH = process.env.REACT_APP_TPR_SUBGRAPH!;
 
-export function* thirdPartySagas() {
+export function* thirdPartySaga() {
   yield takeEvery(FETCH_THIRD_PARTIES_REQUEST, handleFetchThirdPartiesRequest);
   yield takeEvery(CREATE_THIRD_PARTY_REQUEST, handleCreateThirdPartyRequest);
   yield takeEvery(UPDATE_THIRD_PARTY_REQUEST, handleUpdateThirdPartyRequest);
-  yield takeEvery(FETCH_TRANSACTION_SUCCESS, handleFetchTransactionSuccess);
 }
 
 function* handleFetchThirdPartiesRequest(
@@ -123,25 +115,5 @@ function* handleUpdateThirdPartyRequest({
     yield put(updateThirdPartySuccess(updateThirdParty, chainId, txHash));
   } catch (e: any) {
     yield put(updateThirdPartyFailure(updateThirdParty, e.message));
-  }
-}
-
-function* handleFetchTransactionSuccess(action: FetchTransactionSuccessAction) {
-  const { transaction } = action.payload;
-
-  switch (transaction.actionType) {
-    case CREATE_THIRD_PARTY_SUCCESS:
-      yield put(
-        openModal("ThirdPartyCreatedModal", {
-          createThirdParty: transaction.payload.createThirdParty,
-        })
-      );
-      break;
-    case UPDATE_THIRD_PARTY_SUCCESS:
-      yield put(
-        openModal("ThirdPartyUpdatedModal", {
-          updateThirdParty: transaction.payload.updateThirdParty,
-        })
-      );
   }
 }
