@@ -142,13 +142,8 @@ const CreateThirdParty = ({ chainName, isLoading, onSubmit }: Props) => {
             <ManagersField
               managers={field.value}
               error={fieldState.error?.message}
-              onAdd={(address) =>
-                field.onChange({ target: { value: [...field.value, address] } })
-              }
-              onRemove={(address) =>
-                field.onChange({
-                  target: { value: field.value.filter((m) => m !== address) },
-                })
+              onChange={(managers) =>
+                field.onChange({ target: { value: managers } })
               }
             />
           )}

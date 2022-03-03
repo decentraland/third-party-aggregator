@@ -37,9 +37,6 @@
   },
   "managers_field": {
     "label": "Managers",
-    "action": "Add",
-    "required": "Cannot add an empty address",
-    "required_not_duplicated": "Already a manager",
     "required_valid_address": "Not a valid ethereum address"
   },
   "third_party_created_modal": {
