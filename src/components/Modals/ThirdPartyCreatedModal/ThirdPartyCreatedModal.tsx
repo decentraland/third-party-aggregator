@@ -13,12 +13,15 @@ const ThirdPartyCreatedModal = ({
 }: Props) => {
   const { createThirdParty } = metadata;
   const { name: thirdPartyName } = parseMetadata(createThirdParty.metadata);
-  
+
   return (
     <Modal name={name} closeIcon={<Close onClick={onClose} />}>
       <Modal.Header>{t("third_party_created_modal.header")}</Modal.Header>
       <Modal.Content>
-        {t("third_party_created_modal.content", { name: thirdPartyName })}
+        <p>
+          {t("third_party_created_modal.content", { name: thirdPartyName })}
+        </p>
+        <p>{t("third_party_created_modal.content_2")}</p>
       </Modal.Content>
       <Modal.Actions>
         <Button onClick={onClose}>

@@ -18,7 +18,8 @@ const ThirdPartyUpdatedModal = ({
     <Modal name={name} closeIcon={<Close onClick={onClose} />}>
       <Modal.Header>{t("third_party_updated_modal.header")}</Modal.Header>
       <Modal.Content>
-        {t("third_party_updated_modal.content", { name: thirdPartyName })}
+        <p>{t("third_party_updated_modal.content", { name: thirdPartyName })}</p>
+        <p>{t("third_party_updated_modal.content_2")}</p>
       </Modal.Content>
       <Modal.Actions>
         <Button onClick={onNavigate}>

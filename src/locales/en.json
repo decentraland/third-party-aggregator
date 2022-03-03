@@ -42,12 +42,14 @@
   "third_party_created_modal": {
     "header": "Third Party Created",
     "content": "The third party named {name} has been created. It will be displayed in the third party list page.",
+    "content_2": "NOTE: The graph might take a while to update so the Third Party might take a while before it is displayed",
     "button_left": "Create another",
     "button_right": "View third parties"
   },
   "third_party_updated_modal": {
     "header": "Third Party Updated",
     "content": "The third party named {name} has been updated. The new values will be displayed in the third party list page.",
+    "content_2": "NOTE: The graph might take a while to update so the Third Party might take a while before it is displayed with the updated values",
     "button_right": "View third parties"
   }
 }
