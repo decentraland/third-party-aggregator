@@ -1,5 +1,8 @@
 # Third Party Aggregator
 
+- [dev](https://third-party-aggregator.decentraland.io/thirdParties)
+- [prod](https://third-party-aggregator.decentraland.org/thirdParties)
+
 UI to simplify the experience of Third Party Registry aggregators.
 
 Allows CRUD operations over third parties.
