@@ -11,21 +11,18 @@ import { thirdPartySaga } from "./thirdParty/sagas";
 import { routingSaga } from "./routing/sagas";
 import { transactionSaga as extendedTransactionSaga } from "./transaction/sagas";
 import * as translations from "../locales";
-
-export const TRANSACTIONS_API_URL = process.env.REACT_APP_TRANSACTIONS_API_URL!;
+import { chainId, peerUrl, transactionsApiUrl } from "../lib/environment";
 
 const analyticsSaga = createAnalyticsSaga();
 
-const profileSaga = createProfileSaga({
-  peerUrl: process.env.REACT_APP_PEER_URL!,
-});
+const profileSaga = createProfileSaga({ peerUrl });
 
 const translationSaga = createTranslationSaga({ translations });
 
 const walletSaga = createWalletSaga({
-  CHAIN_ID: +(process.env.REACT_APP_CHAIN_ID || 1),
+  CHAIN_ID: chainId,
   POLL_INTERVAL: 0,
-  TRANSACTIONS_API_URL,
+  TRANSACTIONS_API_URL: transactionsApiUrl,
 });
 
 export function* rootSaga() {

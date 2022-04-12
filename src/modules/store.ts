@@ -8,7 +8,7 @@ import { createTransactionMiddleware } from "decentraland-dapps/dist/modules/tra
 import { createAnalyticsMiddleware } from "decentraland-dapps/dist/modules/analytics/middleware";
 import { createRootReducer } from "./reducer";
 import { rootSaga } from "./sagas";
-import { isDevelopment, isTest } from "../lib/environment";
+import { isDev, isTest, segmentApiKey } from "../lib/environment";
 
 export const history = require("history").createBrowserHistory();
 
@@ -19,7 +19,7 @@ const sagasMiddleware = createSagasMiddleware();
 const loggerMiddleware = createLogger({
   collapsed: () => true,
   predicate: (_: any, action) =>
-    !isTest && (isDevelopment || action.type.includes("Failure")),
+    !isTest && (isDev || action.type.includes("Failure")),
 });
 
 const transactionMiddleware = createTransactionMiddleware();
@@ -28,9 +28,7 @@ const { storageMiddleware, loadStorageMiddleware } = createStorageMiddleware({
   storageKey: "third-party-aggregator",
 });
 
-const analyticsMiddleware = createAnalyticsMiddleware(
-  process.env.REACT_APP_SEGMENT_API_KEY || ""
-);
+const analyticsMiddleware = createAnalyticsMiddleware(segmentApiKey);
 
 const middleware = applyMiddleware(
   sagasMiddleware,
@@ -49,7 +47,7 @@ sagasMiddleware.run(rootSaga);
 
 loadStorageMiddleware(store);
 
-if (isDevelopment) {
+if (isDev) {
   const _window = window as any;
   _window.store = store;
 }

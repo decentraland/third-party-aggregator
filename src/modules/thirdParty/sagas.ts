@@ -20,8 +20,7 @@ import {
 } from "./action";
 import { ThirdParty } from "./types";
 import { parseMetadata } from "./utils";
-
-const TPR_SUBGRAPH = process.env.REACT_APP_TPR_SUBGRAPH!;
+import { tprSubgraphUrl } from "../../lib/environment";
 
 export function* thirdPartySaga() {
   yield takeEvery(FETCH_THIRD_PARTIES_REQUEST, handleFetchThirdPartiesRequest);
@@ -50,7 +49,7 @@ function* handleFetchThirdPartiesRequest(
   try {
     const thirdPartiesResult: { thirdParties: ThirdParty[] } = yield call(
       graphql,
-      TPR_SUBGRAPH,
+      tprSubgraphUrl,
       thirdPartiesQuery
     );
 

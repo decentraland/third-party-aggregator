@@ -2,8 +2,6 @@ on:
   push:
     branches:
       - master
-      - staging
-      - release
 
 name: CI
 jobs:
@@ -20,8 +18,6 @@ jobs:
         with:
           deterministic-snapshot: true
           only-update-versions: true
-      - name: copy env
-        run: ./scripts/copyEnv.sh ${{ github.ref_name }} ./config
       - name: install
         run: npm install
       - name: build
