@@ -2,9 +2,8 @@ on:
   push:
     branches:
       - master
-  release:
-    types:
-      - created
+      - staging
+      - release
 
 name: CI
 jobs:
@@ -21,6 +20,8 @@ jobs:
         with:
           deterministic-snapshot: true
           only-update-versions: true
+      - name: copy env
+        run: ./scripts/copyEnv.sh ${{ github.ref_name }} ./config
       - name: install
         run: npm install
       - name: build
@@ -28,9 +29,9 @@ jobs:
       - name: publish
         uses: menduz/oddish-action@master
         with:
-          cwd: './build'
+          cwd: "./build"
           deterministic-snapshot: true
-          registry-url: 'https://registry.npmjs.org'
+          registry-url: "https://registry.npmjs.org"
           access: public
           gitlab-token: ${{ secrets.GITLAB_CDN_DEPLOYER_TOKEN }}
           gitlab-pipeline-url: ${{ secrets.GITLAB_CDN_DEPLOYER_URL }}

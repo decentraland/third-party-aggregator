@@ -3,50 +3,59 @@ name: Set delivery rollout
 on: [deployment_status]
 
 jobs:
-  set-rollout-zone:
+  set-rollout:
     if: ${{ github.event.deployment.task == 'upload-to-cdn' && github.event.deployment_status.state == 'success' }}
     runs-on: ubuntu-18.04
     steps:
       - uses: hmarr/debug-action@v2
 
-      # - name: set-rollout-zone
-      #   uses: decentraland/set-rollout-action@main
-      #   with:
-      #     token: ${{ secrets.GITHUB_TOKEN }}
-      #     # Repo deployment info
-      #     ref: ${{ github.event.deployment.ref }}
-      #     sha: ${{ github.event.deployment.sha }}
-
-      #     # CDN information
-      #     packageName: ${{ github.event.deployment.payload.packageName }}
-      #     packageVersion: ${{ github.event.deployment.payload.packageVersion }}
-
-      #     # Rollout information
-      #     deploymentDomain: "third-party-aggregator.decentraland.zone"
-      #     deploymentName: "_site"
-      #     percentage: 100
-
-      # - name: set-rollout-today
-      #   uses: decentraland/set-rollout-action@main
-      #   with:
-      #     token: ${{ secrets.GITHUB_TOKEN }}
-      #     # Repo deployment info
-      #     ref: ${{ github.event.deployment.ref }}
-      #     sha: ${{ github.event.deployment.sha }}
-
-      #     # CDN information
-      #     packageName: ${{ github.event.deployment.payload.packageName }}
-      #     packageVersion: ${{ github.event.deployment.payload.packageVersion }}
-
-      #     # Rollout information
-      #     deploymentDomain: "third-party-aggregator.decentraland.today"
-      #     deploymentName: "_site"
-      #     percentage: 100
-
-      - name: set-rollout-org
+      # Dev
+      - name: set-rollout-dev
+        if: ${{ github.event.deployment.ref == 'master' }}
         uses: decentraland/set-rollout-action@main
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+
+          # Repo deployment info
+          ref: ${{ github.event.deployment.ref }}
+          sha: ${{ github.event.deployment.sha }}
+
+          # CDN information
+          packageName: ${{ github.event.deployment.payload.packageName }}
+          packageVersion: ${{ github.event.deployment.payload.packageVersion }}
+
+          # Rollout information
+          deploymentDomain: "third-party-aggregator.decentraland.zone"
+          deploymentName: "_site"
+          percentage: 100
+
+      # Staging
+      - name: set-rollout-stg
+        if: ${{ github.event.deployment.ref == 'staging' }}
+        uses: decentraland/set-rollout-action@main
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+          # Repo deployment info
+          ref: ${{ github.event.deployment.ref }}
+          sha: ${{ github.event.deployment.sha }}
+
+          # CDN information
+          packageName: ${{ github.event.deployment.payload.packageName }}
+          packageVersion: ${{ github.event.deployment.payload.packageVersion }}
+
+          # Rollout information
+          deploymentDomain: "third-party-aggregator.decentraland.today"
+          deploymentName: "_site"
+          percentage: 100
+
+      # Prod
+      - name: set-rollout-prd
+        if: ${{ github.event.deployment.ref == 'release' }}
+        uses: decentraland/set-rollout-action@main
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
           # Repo deployment info
           ref: ${{ github.event.deployment.ref }}
           sha: ${{ github.event.deployment.sha }}
