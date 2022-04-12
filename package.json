@@ -1,5 +1,5 @@
 {
-  "name": "third-party-aggregator",
+  "name": "@dcl/third-party-aggregator",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
