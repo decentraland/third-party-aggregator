@@ -40,7 +40,6 @@ function* handleFetchThirdPartiesRequest(
         resolver
         isApproved
         maxItems
-        totalItems
         root
         consumedSlots
       }
