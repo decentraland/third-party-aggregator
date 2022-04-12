@@ -5,7 +5,6 @@ export type ThirdParty = {
   resolver: string;
   isApproved: boolean;
   maxItems: string;
-  totalItems: string;
   root: string;
   consumedSlots: string;
   metadata: Metadata;
