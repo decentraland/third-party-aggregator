@@ -3,13 +3,13 @@ name: Set delivery rollout
 on: [deployment_status]
 
 jobs:
-  set-rollout:
+  set-rollout-zone:
     if: ${{ github.event.deployment.task == 'upload-to-cdn' && github.event.deployment_status.state == 'success' }}
     runs-on: ubuntu-18.04
     steps:
       - uses: hmarr/debug-action@v2
 
-      - name: set-rollout-io
+      - name: set-rollout-zone
         uses: decentraland/set-rollout-action@main
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -22,11 +22,11 @@ jobs:
           packageVersion: ${{ github.event.deployment.payload.packageVersion }}
 
           # Rollout information
-          deploymentDomain: 'third-party-aggregator.decentraland.io'
-          deploymentName: '_site'
+          deploymentDomain: "third-party-aggregator.decentraland.zone"
+          deploymentName: "_site"
           percentage: 100
 
-      - name: set-rollout-net
+      - name: set-rollout-today
         uses: decentraland/set-rollout-action@main
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -39,8 +39,8 @@ jobs:
           packageVersion: ${{ github.event.deployment.payload.packageVersion }}
 
           # Rollout information
-          deploymentDomain: 'third-party-aggregator.decentraland.net'
-          deploymentName: '_site'
+          deploymentDomain: "third-party-aggregator.decentraland.today"
+          deploymentName: "_site"
           percentage: 100
 
       - name: set-rollout-org
@@ -56,6 +56,6 @@ jobs:
           packageVersion: ${{ github.event.deployment.payload.packageVersion }}
 
           # Rollout information
-          deploymentDomain: 'third-party-aggregator.decentraland.org'
-          deploymentName: '_site'
+          deploymentDomain: "third-party-aggregator.decentraland.org"
+          deploymentName: "_site"
           percentage: 100

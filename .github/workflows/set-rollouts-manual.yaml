@@ -31,10 +31,10 @@ jobs:
           sha: ${{ github.sha }}
 
           # CDN information
-          packageName: '@dcl/third-party-aggregator'
+          packageName: "@dcl/third-party-aggregator"
           packageVersion: ${{ github.event.inputs.packageVersion }}
 
           # Rollout information
           deploymentDomain: ${{ github.event.inputs.deploymentDomain }}
-          deploymentName: '_site'
+          deploymentName: "_site"
           percentage: ${{ github.event.inputs.percentage }}
