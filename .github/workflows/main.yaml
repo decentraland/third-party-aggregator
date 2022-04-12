@@ -13,16 +13,16 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14.x
-      - name: set package.json version
+      - name: Set package.json version
         uses: menduz/oddish-action@master
         with:
           deterministic-snapshot: true
           only-update-versions: true
-      - name: install
+      - name: Install
         run: npm install
-      - name: build
+      - name: Build
         run: npm run build
-      - name: publish
+      - name: Publish
         uses: menduz/oddish-action@master
         with:
           cwd: "./build"

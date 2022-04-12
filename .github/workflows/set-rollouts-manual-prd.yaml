@@ -1,4 +1,4 @@
-name: Set delivery rollout - Manual
+name: Set delivery rollout - Manual Prd
 
 on:
   workflow_dispatch:
@@ -7,22 +7,13 @@ on:
         description: "NPM Version of the release (@dcl/third-party-aggregator)"
         required: true
         default: ""
-      deploymentDomain:
-        type: "choice"
-        description: "Deployment domain"
-        required: true
-        default: ".zone"
-        options:
-          - .zone
-          - .today
-          - .org
 
 jobs:
-  set-manual-rollout:
+  set-manual-rollout-prd:
     runs-on: ubuntu-18.04
     steps:
       - uses: hmarr/debug-action@v2
-      - name: Set Rollout
+      - name: Set Rollout Prd
         uses: decentraland/set-rollout-action@main
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -36,6 +27,6 @@ jobs:
           packageVersion: ${{ github.event.inputs.packageVersion }}
 
           # Rollout information
-          deploymentDomain: third-party-aggregator.decentraland${{ github.event.inputs.deploymentDomain }}
+          deploymentDomain: third-party-aggregator.decentraland.org
           deploymentName: "_site"
           percentage: 100
