@@ -1,4 +1,4 @@
-import { ChainName } from "@dcl/schemas";
+import { ChainId } from "@dcl/schemas";
 
 export type CreateThirdPartyFormData = {
   name: string;
@@ -9,10 +9,10 @@ export type CreateThirdPartyFormData = {
 };
 
 export type Props = {
-  chainName: ChainName;
+  chainId: ChainId;
   isLoading: boolean;
-  onSubmit: (data: CreateThirdPartyFormData, chainName: ChainName) => void;
+  onSubmit: (data: CreateThirdPartyFormData, chainId: ChainId) => void;
 };
 
-export type MapStateProps = Pick<Props, "isLoading" | "chainName">;
+export type MapStateProps = Pick<Props, "isLoading" | "chainId">;
 export type MapDispatchProps = Pick<Props, "onSubmit">;

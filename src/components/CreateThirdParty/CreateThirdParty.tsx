@@ -10,7 +10,7 @@ import { getUrn } from "./utils";
 import ManagersField from "../ManagersField";
 import "./CreateThirdParty.css";
 
-const CreateThirdParty = ({ chainName, isLoading, onSubmit }: Props) => {
+const CreateThirdParty = ({ chainId, isLoading, onSubmit }: Props) => {
   const { control, handleSubmit } = useForm<CreateThirdPartyFormData>({
     defaultValues: {
       name: "",
@@ -31,7 +31,7 @@ const CreateThirdParty = ({ chainName, isLoading, onSubmit }: Props) => {
       </div>
       <form
         className="form-container"
-        onSubmit={handleSubmit((data) => onSubmit(data, chainName))}
+        onSubmit={handleSubmit((data) => onSubmit(data, chainId))}
       >
         <Controller
           name="name"
@@ -53,7 +53,7 @@ const CreateThirdParty = ({ chainName, isLoading, onSubmit }: Props) => {
               {...field}
               message={
                 fieldState.error?.message ||
-                (field.value ? getUrn(field.value, chainName) : "")
+                (field.value ? getUrn(field.value, chainId) : "")
               }
               error={fieldState.invalid}
             />

@@ -1,13 +1,13 @@
-import { ChainName } from "@dcl/schemas";
+import { ChainId, getURNProtocol } from "@dcl/schemas";
 import { CreateThirdParty } from "../../modules/thirdParty/types";
 import { CreateThirdPartyFormData } from "./CreateThirdParty.types";
 
 export const toCreateThirdParty = (
   data: CreateThirdPartyFormData,
-  chainName: ChainName
+  chainId: ChainId
 ): CreateThirdParty => {
   return {
-    urn: getUrn(data.name, chainName),
+    urn: getUrn(data.name, chainId),
     resolver: data.resolver,
     slots: data.slots,
     managers: data.managers,
@@ -15,10 +15,10 @@ export const toCreateThirdParty = (
   };
 };
 
-export const getUrn = (thirdPartyName: string, chainName: ChainName) => {
-  return `urn:decentraland:${chainName.toLowerCase()}:collections-thirdparty:${formatThirdPartyName(
-    thirdPartyName
-  )}`;
+export const getUrn = (thirdPartyName: string, chainId: ChainId) => {
+  const protocol = getURNProtocol(chainId);
+  const name = formatThirdPartyName(thirdPartyName);
+  return `urn:decentraland:${protocol}:collections-thirdparty:${name}`;
 };
 
 export const formatThirdPartyName = (value: string) => {
