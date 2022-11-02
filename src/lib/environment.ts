@@ -14,7 +14,7 @@ export const chainId = (() => {
     return +process.env.REACT_APP_CHAIN_ID;
   }
 
-  return isPrd || isStg ? 1 : 3;
+  return isPrd || isStg ? 1 : 5;
 })();
 
 export const peerUrl = (() => {
