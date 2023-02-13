@@ -35,8 +35,8 @@ export const transactionsApiUrl = (() => {
   return isPrd
     ? "https://transactions-api.decentraland.org/v1"
     : isStg
-    ? "https://transactions-api.decentraland.net/v1"
-    : "https://transactions-api.decentraland.io/v1";
+    ? "https://transactions-api.decentraland.today/v1"
+    : "https://transactions-api.decentraland.zone/v1";
 })();
 
 export const tprSubgraphUrl = (() => {
