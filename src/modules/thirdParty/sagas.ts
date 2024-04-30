@@ -1,9 +1,9 @@
 import { call, put, takeEvery } from "redux-saga/effects";
-import { graphql } from "decentraland-dapps/dist/lib/graph";
 import { getChainIdByNetwork } from "decentraland-dapps/dist/lib/eth";
 import { sendTransaction } from "decentraland-dapps/dist/modules/wallet/utils";
 import { Network } from "@dcl/schemas";
 import { ContractName, getContract } from "decentraland-transactions";
+import SubgraphService from '../vendor/decentraland/SubgraphService'
 import {
   createThirdPartyFailure,
   CreateThirdPartyRequestAction,
@@ -46,15 +46,15 @@ function* handleFetchThirdPartiesRequest(
     }`;
 
   try {
-    const thirdPartiesResult: { thirdParties: ThirdParty[] } = yield call(
-      graphql,
+    const thirdPartiesResult: { data: { thirdParties: ThirdParty[] } } = yield call(
+      [SubgraphService, 'fetch'],
       tprSubgraphUrl,
       thirdPartiesQuery
     );
 
     yield put(
       fetchThirdPartiesSuccess(
-        thirdPartiesResult.thirdParties.map((tp) => {
+        thirdPartiesResult.data.thirdParties.map((tp) => {
           const { name, description } = parseMetadata(tp.rawMetadata);
 
           return {
