@@ -1,16 +1,12 @@
 import React, { useCallback } from 'react'
-import { Navbar as BaseNavbar, UserMenu } from 'decentraland-dapps/dist/containers'
+import { Navbar as BaseNavbar } from 'decentraland-ui/dist/components/Navbar/Navbar'
 
 import { locations } from '../../modules/locations'
 import { Props } from './Navbar.types'
 import './Navbar.css'
 
 const Navbar = (props: Props) => {
-  const { pathname, onNavigate, isConnected } = props
-
-  if (isConnected) {
-    props = { ...props, rightMenu: <UserMenu /> }
-  }
+  const { pathname, onNavigate } = props
 
   const handleOnSignIn = useCallback(() => {
     onNavigate(locations.signIn())
@@ -23,6 +19,7 @@ const Navbar = (props: Props) => {
   return (
     <BaseNavbar
       {...props}
+      isSignedIn={props.isConnected}
       isFullscreen={props.isFullscreen}
       isSignIn={pathname === locations.signIn()}
       onSignIn={handleOnSignIn}

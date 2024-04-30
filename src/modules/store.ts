@@ -2,6 +2,7 @@ import { applyMiddleware, compose, createStore } from "redux";
 import createSagasMiddleware from "redux-saga";
 import { routerMiddleware } from "connected-react-router";
 import { createLogger } from "redux-logger";
+import { createBrowserHistory } from "history";
 import { createStorageMiddleware } from "decentraland-dapps/dist/modules/storage/middleware";
 import { storageReducerWrapper } from "decentraland-dapps/dist/modules/storage/reducer";
 import { createTransactionMiddleware } from "decentraland-dapps/dist/modules/transaction/middleware";
@@ -10,7 +11,8 @@ import { createRootReducer } from "./reducer";
 import { rootSaga } from "./sagas";
 import { isDev, isTest, segmentApiKey } from "../lib/environment";
 
-export const history = require("history").createBrowserHistory();
+const basename = /^decentraland.(zone|org|today)$/.test(window.location.host) ? '/third-party-aggregator' : undefined
+export const history = createBrowserHistory({ basename })
 
 const rootReducer = storageReducerWrapper(createRootReducer(history));
 
