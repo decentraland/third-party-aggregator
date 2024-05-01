@@ -29,5 +29,5 @@ ReactDOM.render(
       </ToastProvider>
     </TranslationProvider>
   </Provider>,
-  document.getElementById('root')
+  document.getElementById('root') as HTMLElement
 )
