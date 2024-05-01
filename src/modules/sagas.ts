@@ -15,7 +15,7 @@ import { chainId, peerUrl, transactionsApiUrl } from "../lib/environment";
 
 const analyticsSaga = createAnalyticsSaga();
 
-const profileSaga = createProfileSaga({ peerUrl });
+const profileSaga = createProfileSaga({ peerUrl, getIdentity: () => undefined });
 
 const translationSaga = createTranslationSaga({ translations });
 

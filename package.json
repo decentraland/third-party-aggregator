@@ -40,7 +40,9 @@
     "@types/redux": "^3.6.0",
     "@types/redux-logger": "^3.0.9",
     "@vitejs/plugin-react-swc": "^3.6.0",
+    "dotenv": "^16.4.5",
     "eslint": "^8.44.0",
+    "jest-environment-jsdom": "^29.7.0",
     "rollup-plugin-polyfill-node": "^0.12.0",
     "ts-jest": "^29.1.1",
     "ts-node": "^10.9.1",
@@ -50,7 +52,7 @@
   },
   "scripts": {
     "start": "vite",
-    "prebuild": "node scripts/prebuild.js",
+    "prebuild": "node scripts/prebuild.cjs",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "jest",

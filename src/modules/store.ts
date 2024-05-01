@@ -7,21 +7,21 @@ import { createStorageMiddleware } from "decentraland-dapps/dist/modules/storage
 import { storageReducerWrapper } from "decentraland-dapps/dist/modules/storage/reducer";
 import { createTransactionMiddleware } from "decentraland-dapps/dist/modules/transaction/middleware";
 import { createAnalyticsMiddleware } from "decentraland-dapps/dist/modules/analytics/middleware";
+import { isDev, isTest, segmentApiKey } from "../lib/environment";
 import { createRootReducer } from "./reducer";
 import { rootSaga } from "./sagas";
-import { isDev, isTest, segmentApiKey } from "../lib/environment";
 
 const basename = /^decentraland.(zone|org|today)$/.test(window.location.host) ? '/third-party-aggregator' : undefined
+
 export const history = createBrowserHistory({ basename })
 
 const rootReducer = storageReducerWrapper(createRootReducer(history));
 
 const sagasMiddleware = createSagasMiddleware();
 
-const loggerMiddleware = createLogger({
+const loggerMiddleware = isTest ? null : createLogger({
   collapsed: () => true,
-  predicate: (_: any, action) =>
-    !isTest && (isDev || action.type.includes("Failure")),
+  predicate: () => isDev,
 });
 
 const transactionMiddleware = createTransactionMiddleware();
@@ -32,14 +32,16 @@ const { storageMiddleware, loadStorageMiddleware } = createStorageMiddleware({
 
 const analyticsMiddleware = createAnalyticsMiddleware(segmentApiKey);
 
-const middleware = applyMiddleware(
+const middlewares = [
   sagasMiddleware,
   routerMiddleware(history),
   loggerMiddleware,
   transactionMiddleware,
   storageMiddleware,
   analyticsMiddleware
-);
+].filter(mdw => mdw !== null)
+
+const middleware = applyMiddleware(...middlewares);
 
 const enhancer = compose(middleware);
 
