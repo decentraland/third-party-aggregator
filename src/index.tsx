@@ -9,8 +9,8 @@ import TranslationProvider from 'decentraland-dapps/dist/providers/TranslationPr
 
 import { store, history } from './modules/store'
 import { Routes } from './components/Routes'
-import * as locales from './locales'
 import * as modals from './components/Modals'
+import * as locales from './locales'
 
 import './index.css'
 import './themes'
