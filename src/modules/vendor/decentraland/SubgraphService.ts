@@ -4,8 +4,8 @@ export class SubgraphService {
       const options: RequestInit = {
         method: 'POST',
         body: JSON.stringify({
-          query
-        })
+          query,
+        }),
       }
 
       const response = await fetch(url, options)
@@ -18,6 +18,7 @@ export class SubgraphService {
       return data
     } catch (error) {
       console.error(error)
+      throw error
     }
   }
 }
