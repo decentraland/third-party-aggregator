@@ -45,8 +45,8 @@ export const tprSubgraphUrl = (() => {
   }
 
   return isPrd || isStg
-    ? "https://api.thegraph.com/subgraphs/name/decentraland/tpr-matic-mainnet"
-    : "https://api.thegraph.com/subgraphs/name/decentraland/tpr-matic-mumbai";
+    ? "https://subgraph.decentraland.org/tpr-matic-mainnet"
+    : "https://subgraph.decentraland.org/tpr-matic-amoy";
 })();
 
 export const segmentApiKey = (() => {
