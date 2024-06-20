@@ -1,5 +1,5 @@
 {
-  "name": "@dcl/third-party-aggregator",
+  "name": "@dcl/linked-wearables",
   "version": "0.1.0",
   "description": "Static website for the third party aggregator",
   "main": "index.js",

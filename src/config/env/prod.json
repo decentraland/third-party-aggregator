@@ -1,0 +1,10 @@
+{
+  "CHAIN_ID": "1",
+  "ENVIRONMENT": "production",
+  "PEER_URL": "https://peer.decentraland.org",
+  "TRANSACTIONS_API_URL": "https://transactions-api.decentraland.org/v1",
+  "TPR_GRAPH_URL": "https://subgraph.decentraland.org/tpr-matic-mainnet",
+  "INTERCOM_APP_ID": "z0h94kay",
+  "SEGMENT_API_KEY": "ZxBQcII46wT0TURGQczWYK7tyBq8BEmt",
+  "AUTH_URL": "/auth"
+}

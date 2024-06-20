@@ -1,20 +1,22 @@
-import React from "react";
-import { Footer } from "decentraland-dapps/dist/containers";
-import { Container, Page as DCLPage } from "decentraland-ui";
-import { Navbar } from "../Navbar";
-import { Props } from "./Page.types";
+import * as React from 'react'
+import classNames from 'classnames'
+import { Container } from 'decentraland-ui'
+import { Footer } from 'decentraland-dapps/dist/containers'
+import { Navbar } from '../Navbar'
+import { Props } from './Page.types'
 
-import "./Page.css";
-import classNames from "classnames";
+import './Page.css'
 
-const Page = ({ children, className }: Props) => (
-  <>
-    <Navbar isFullscreen />
-    <DCLPage className={classNames("Page", className)} isFullscreen>
-      <Container>{children}</Container>
-    </DCLPage>
-    <Footer isFullscreen />
-  </>
-);
+const Page: React.FC<Props> = ({ children, className }: Props) => {
+  return (
+    <>
+      <Navbar />
+      <div className={classNames('Page', className)}>
+        <Container>{children}</Container>
+      </div>
+      <Footer isFullscreen />
+    </>
+  )
+}
 
-export default React.memo(Page);
+export default React.memo(Page)
