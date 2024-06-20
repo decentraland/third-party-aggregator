@@ -1,20 +1,22 @@
 import React, { useCallback } from 'react'
 import { Navbar as BaseNavbar } from 'decentraland-dapps/dist/containers'
+import { useHistory, useLocation } from 'react-router-dom'
 
 import { locations } from '../../modules/locations'
 import { Props } from './Navbar.types'
 import './Navbar.css'
 
 const Navbar = (props: Props) => {
-  const { pathname, onNavigate } = props
+  const navigate = useHistory()
+  const location = useLocation()
 
   const handleOnSignIn = useCallback(() => {
-    onNavigate(locations.signIn())
-  }, [onNavigate])
+    if (location.pathname !== locations.signIn()) {
+      navigate.push(locations.signIn())
+    }
+  }, [navigate, location.pathname])
 
-  return (
-    <BaseNavbar {...props} isSignedIn={props.isConnected} isSigningIn={pathname === locations.signIn()} onClickSignIn={handleOnSignIn} />
-  )
+  return <BaseNavbar {...props} onSignIn={handleOnSignIn} />
 }
 
 export default React.memo(Navbar)
