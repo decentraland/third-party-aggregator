@@ -12,7 +12,7 @@ import { isDevelopment } from '../lib/environment'
 import { createRootReducer } from './reducer'
 import { rootSaga } from './sagas'
 
-const basename = /^decentraland.(zone|org|today)$/.test(window.location.host) ? '/third-party-aggregator' : undefined
+const basename = /^decentraland.(zone|org|today)$/.test(window.location.host) ? '/linked-wearables' : undefined
 
 export const history = createBrowserHistory({ basename })
 
