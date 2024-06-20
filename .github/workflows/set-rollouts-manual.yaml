@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       packageVersion:
-        description: "NPM Version of the release (@dcl/third-party-aggregator)"
+        description: "NPM Version of the release (@dcl/linked-wearables)"
         required: true
         default: ""
       deploymentEnvironment:
@@ -36,7 +36,7 @@ jobs:
           sha: ${{ github.sha }}
 
           # CDN information
-          packageName: "@dcl/third-party-aggregator"
+          packageName: "@dcl/linked-wearables"
           packageVersion: ${{ github.event.inputs.packageVersion }}
 
           # Rollout information
