@@ -10,7 +10,7 @@ export const parseMetadata = (metadata: string): Pick<Metadata, 'name' | 'descri
       .filter(contract => {
         const [network, address] = contract.split('-')
         const hasValidNetwork = network && Object.values(ContractNetwork).includes(network as ContractNetwork)
-        const hasValidAddress = address && address.length === 42
+        const hasValidAddress = address && isAddress(address)
         return hasValidNetwork && hasValidAddress
       })
       .map(contract => {
