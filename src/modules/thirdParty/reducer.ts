@@ -1,11 +1,5 @@
-import {
-  loadingReducer,
-  LoadingState,
-} from "decentraland-dapps/dist/modules/loading/reducer";
-import {
-  FetchTransactionSuccessAction,
-  FETCH_TRANSACTION_SUCCESS,
-} from "decentraland-dapps/dist/modules/transaction/actions";
+import { loadingReducer, LoadingState } from 'decentraland-dapps/dist/modules/loading/reducer'
+import { FetchTransactionSuccessAction, FETCH_TRANSACTION_SUCCESS } from 'decentraland-dapps/dist/modules/transaction/actions'
 import {
   CreateThirdPartyFailureAction,
   CreateThirdPartyRequestAction,
@@ -24,21 +18,15 @@ import {
   UpdateThirdPartySuccessAction,
   UPDATE_THIRD_PARTY_FAILURE,
   UPDATE_THIRD_PARTY_REQUEST,
-  UPDATE_THIRD_PARTY_SUCCESS,
-} from "./action";
-import { ThirdParty } from "./types";
-
-export type ThirdPartyState = {
-  data: Record<string, ThirdParty>;
-  loading: LoadingState;
-  error: string | null;
-};
+  UPDATE_THIRD_PARTY_SUCCESS
+} from './action'
+import { ThirdParty, ThirdPartyState } from './types'
 
 const INITAL_STATE: ThirdPartyState = {
-  data: {},
+  data: { thirdParties: {}, aggregatorAddress: '0x0000000000000000000000000000000000000000' },
   loading: [],
-  error: null,
-};
+  error: null
+}
 
 type ThirdPartyReducerAction =
   | FetchThirdPartiesRequestAction
@@ -50,35 +38,38 @@ type ThirdPartyReducerAction =
   | UpdateThirdPartyRequestAction
   | UpdateThirdPartySuccessAction
   | UpdateThirdPartyFailureAction
-  | FetchTransactionSuccessAction;
+  | FetchTransactionSuccessAction
 
-export function thirdPartyReducer(
-  state = INITAL_STATE,
-  action: ThirdPartyReducerAction
-): ThirdPartyState {
+export function thirdPartyReducer(state = INITAL_STATE, action: ThirdPartyReducerAction): ThirdPartyState {
   switch (action.type) {
     case CREATE_THIRD_PARTY_REQUEST:
     case UPDATE_THIRD_PARTY_REQUEST:
     case FETCH_THIRD_PARTIES_REQUEST: {
       return {
         ...state,
-        loading: loadingReducer(state.loading, action),
-      };
+        loading: loadingReducer(state.loading, action)
+      }
     }
     case FETCH_THIRD_PARTIES_SUCCESS: {
-      const { thirdParties } = action.payload;
+      const { thirdParties, aggregatorAddress } = action.payload
       return {
         ...state,
         loading: loadingReducer(state.loading, action),
-        data: thirdParties.reduce((acc, tp) => {
-          acc[tp.id] = tp;
-          return acc;
-        }, {} as Record<string, ThirdParty>),
-        error: null,
-      };
+        data: {
+          thirdParties: {
+            ...state.data.thirdParties,
+            ...thirdParties.reduce((acc, tp) => {
+              acc[tp.id] = tp
+              return acc
+            }, {} as Record<string, ThirdParty>)
+          },
+          aggregatorAddress
+        },
+        error: null
+      }
     }
     case FETCH_TRANSACTION_SUCCESS: {
-      const { transaction } = action.payload;
+      const { transaction } = action.payload
 
       switch (transaction.actionType) {
         case UPDATE_THIRD_PARTY_SUCCESS:
@@ -86,26 +77,26 @@ export function thirdPartyReducer(
           return {
             ...state,
             loading: loadingReducer(state.loading, {
-              type: transaction.actionType,
+              type: transaction.actionType
             }),
-            error: null,
-          };
+            error: null
+          }
         }
         default:
-          return state;
+          return state
       }
     }
     case CREATE_THIRD_PARTY_FAILURE:
     case UPDATE_THIRD_PARTY_FAILURE:
     case FETCH_THIRD_PARTIES_FAILURE: {
-      const { error } = action.payload;
+      const { error } = action.payload
       return {
         ...state,
         loading: loadingReducer(state.loading, action),
-        error,
-      };
+        error
+      }
     }
     default:
-      return state;
+      return state
   }
 }

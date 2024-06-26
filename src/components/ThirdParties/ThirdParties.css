@@ -5,7 +5,12 @@
   margin-bottom: 48px;
 }
 
-
 .ThirdParties .page-title .header {
   margin: 0px;
+}
+
+.ThirdParties .contentHeader {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
 }

@@ -5,7 +5,7 @@
     "name": "Name",
     "max_items": "Total Slots",
     "consumed_slots": "Consumed Slots",
-    "edit": "Update"
+    "details": "View details"
   },
   "create_third_party": {
     "header": "Create Third Party",
@@ -24,6 +24,7 @@
     "header": "Update Third Party",
     "name": "Name",
     "description": "Description",
+    "contracts": "Contracts",
     "resolver": "Resolver",
     "slots": "Add Slots",
     "available_slots": "Available slots {v}",
@@ -35,6 +36,14 @@
     "required_positive": "Must be a positive number",
     "required_no_colon_allowed": "The `:` character is not allowed"
   },
+  "linked_contracts": {
+    "header": "Linked Contracts",
+    "required_address": "A valid ERC721 contract address is required.",
+    "no_contracts": "No contracts linked",
+    "network": "Network",
+    "address": "Address",
+    "add_contract": "Add contract"
+  },
   "managers_field": {
     "label": "Managers",
     "required_valid_address": "Not a valid ethereum address"
@@ -45,6 +54,12 @@
     "content_2": "NOTE: The graph might take a while to update so the Third Party might take a while before it is displayed",
     "button_left": "Create another",
     "button_right": "View third parties"
+  },
+  "contract_network": {
+    "mainnet": "Ethereum Mainnet",
+    "sepolia": "Ethereum Sepolia",
+    "matic": "Matic Mainnet",
+    "amoy": "Matic Amoy"
   },
   "third_party_updated_modal": {
     "header": "Third Party Updated",
