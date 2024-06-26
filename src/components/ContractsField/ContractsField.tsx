@@ -22,9 +22,7 @@ export const ContractsField = (props: Props) => {
   )
 
   const handleAdd = useCallback(() => {
-    console.log('Adding contract', address, network)
     onChange({ address, network } as LinkedContract)
-    console.log('Contract added')
     setAddress('')
     setNetwork(ContractNetwork.ETHEREUM_MAINNET)
   }, [onChange, address, network])

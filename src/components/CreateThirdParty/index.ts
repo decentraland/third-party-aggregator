@@ -1,3 +1,3 @@
-import CreateThirdParty from "./CreateThirdParty.container";
+import CreateThirdParty from './CreateThirdParty.container'
 
-export default CreateThirdParty;
+export default CreateThirdParty

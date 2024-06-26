@@ -6,6 +6,7 @@ import Page from '../Page'
 import { Props } from './ThirdParties.types'
 import { locations } from '../../modules/locations'
 import './ThirdParties.css'
+import { getThirdPartyVersion } from '../../modules/thirdParty/utils'
 
 enum TABLE_FILTER {
   ALL = 1,
@@ -57,6 +58,7 @@ const ThirdParties = ({ thirdParties, isLoading, isAggregator, userAddress }: Pr
                 <Table.HeaderCell>{t('third_parties.name')}</Table.HeaderCell>
                 <Table.HeaderCell>{t('third_parties.max_items')}</Table.HeaderCell>
                 <Table.HeaderCell>{t('third_parties.consumed_slots')}</Table.HeaderCell>
+                <Table.HeaderCell>{t('third_parties.version')}</Table.HeaderCell>
                 <Table.HeaderCell />
               </Table.Row>
             </Table.Header>
@@ -66,6 +68,7 @@ const ThirdParties = ({ thirdParties, isLoading, isAggregator, userAddress }: Pr
                   <Table.Cell>{tp.metadata.name}</Table.Cell>
                   <Table.Cell>{tp.maxItems}</Table.Cell>
                   <Table.Cell>{tp.consumedSlots}</Table.Cell>
+                  <Table.Cell>v{getThirdPartyVersion(tp)}</Table.Cell>
                   <Table.Cell textAlign="right">
                     <Popup
                       content={t('third_parties.details')}

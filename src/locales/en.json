@@ -5,7 +5,8 @@
     "name": "Name",
     "max_items": "Total Slots",
     "consumed_slots": "Consumed Slots",
-    "details": "View details"
+    "details": "View details",
+    "version": "Version"
   },
   "create_third_party": {
     "header": "Create Third Party",

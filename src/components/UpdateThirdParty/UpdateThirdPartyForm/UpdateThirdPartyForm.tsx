@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Button, Field, Header } from 'decentraland-ui'
 import { t } from 'decentraland-dapps/dist/modules/translation/utils'
 import { Controller, useForm } from 'react-hook-form'
@@ -7,9 +7,11 @@ import './UpdateThirdPartyForm.css'
 import ManagersField from '../../ManagersField'
 import { ContractsTable } from '../../ContractsTable'
 import { ContractsField } from '../../ContractsField'
-import { LinkedContract } from '../../../modules/thirdParty/types'
+import { LinkedContract, ThirdPartyVersion } from '../../../modules/thirdParty/types'
+import { getThirdPartyVersion } from '../../../modules/thirdParty/utils'
 
 const UpdateThirdPartyForm = ({ thirdParty, canUpdate, isUpdating, onUpdateThirdParty }: Props) => {
+  const thirdPartyVersion = useMemo(() => getThirdPartyVersion(thirdParty), [thirdParty])
   const { control, handleSubmit } = useForm<UpdateThirdPartyFormData>({
     disabled: isUpdating || !canUpdate,
     defaultValues: {
@@ -65,34 +67,38 @@ const UpdateThirdPartyForm = ({ thirdParty, canUpdate, isUpdating, onUpdateThird
           <Field label={t('update_third_party.description')} {...field} message={fieldState.error?.message} error={fieldState.invalid} />
         )}
       />
-      <Controller
-        name="contracts"
-        control={control}
-        render={({ field }) => (
-          <>
-            <Header sub>{t('update_third_party.contracts')}</Header>
-            <ContractsTable contracts={field.value} />
-            <ContractsField
-              disabled={field.disabled}
-              onChange={(contract: LinkedContract) => field.onChange(field.value.concat(contract))}
-            />
-          </>
-        )}
-      />
-      <Controller
-        name="resolver"
-        control={control}
-        rules={{
-          validate: (value: string) => {
-            if (!/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_+.~#?&//=]*)/.test(value)) {
-              return t('update_third_party.required_valid_url')
+      {thirdPartyVersion === ThirdPartyVersion.V2 && (
+        <Controller
+          name="contracts"
+          control={control}
+          render={({ field }) => (
+            <>
+              <Header sub>{t('update_third_party.contracts')}</Header>
+              <ContractsTable contracts={field.value} />
+              <ContractsField
+                disabled={field.disabled}
+                onChange={(contract: LinkedContract) => field.onChange(field.value.concat(contract))}
+              />
+            </>
+          )}
+        />
+      )}
+      {thirdPartyVersion === ThirdPartyVersion.V1 && (
+        <Controller
+          name="resolver"
+          control={control}
+          rules={{
+            validate: (value: string) => {
+              if (!/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_+.~#?&//=]*)/.test(value)) {
+                return t('update_third_party.required_valid_url')
+              }
             }
-          }
-        }}
-        render={({ field, fieldState }) => (
-          <Field label={t('update_third_party.resolver')} {...field} message={fieldState.error?.message} error={fieldState.invalid} />
-        )}
-      />
+          }}
+          render={({ field, fieldState }) => (
+            <Field label={t('update_third_party.resolver')} {...field} message={fieldState.error?.message} error={fieldState.invalid} />
+          )}
+        />
+      )}
       <Controller
         name="slots"
         control={control}
