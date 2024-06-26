@@ -19,7 +19,7 @@ const Routes = ({ isConnected }: Props) => (
         <>
           <Route exact path={locations.thirdParties()} component={ThirdParties} />
           <Route exact path={locations.createThirdParty()} component={CreateThirdParty} />
-          <Route exact path={locations.updateThirdParty()} component={UpdateThirdParty} />
+          <Route exact path={locations.thirdPartyDetails()} component={UpdateThirdParty} />
           <Redirect to={locations.thirdParties()} />
         </>
       )}

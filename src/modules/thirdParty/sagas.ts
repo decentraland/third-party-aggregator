@@ -17,10 +17,9 @@ import {
   updateThirdPartyFailure,
   UpdateThirdPartyRequestAction,
   updateThirdPartySuccess,
-  UPDATE_THIRD_PARTY_REQUEST,
+  UPDATE_THIRD_PARTY_REQUEST
 } from './action'
-import { ThirdParty } from './types'
-import { parseMetadata } from './utils'
+import { GraphThirdParty, GraphRegistryData } from './types'
 
 export const TPR_GRAPH_URL = config.get('TPR_GRAPH_URL', '')
 
@@ -42,11 +41,25 @@ function* handleFetchThirdPartiesRequest(_action: FetchThirdPartiesRequestAction
         maxItems
         root
         consumedSlots
+        metadata {
+          thirdParty {
+            id
+            name
+            description
+            contracts {
+              address
+              network
+            }
+          }
+        }
+      }
+      registryDatas(first: 1) {
+        aggregatorAddress
       }
     }`
 
   try {
-    const thirdPartiesResult: { data: { thirdParties: ThirdParty[] } } = yield call(
+    const queryResult: { data: { thirdParties: GraphThirdParty[]; registryDatas: GraphRegistryData[] } } = yield call(
       [SubgraphService, 'fetch'],
       TPR_GRAPH_URL,
       thirdPartiesQuery
@@ -54,18 +67,18 @@ function* handleFetchThirdPartiesRequest(_action: FetchThirdPartiesRequestAction
 
     yield put(
       fetchThirdPartiesSuccess(
-        thirdPartiesResult.data.thirdParties.map((tp) => {
-          const { name, description } = parseMetadata(tp.rawMetadata)
-
+        queryResult.data.thirdParties.map(tp => {
           return {
             ...tp,
             metadata: {
-              name,
-              description,
-              id: tp.id,
-            },
+              id: tp.metadata.thirdParty.id,
+              name: tp.metadata.thirdParty.name,
+              description: tp.metadata.thirdParty.description,
+              contracts: tp.metadata.thirdParty.contracts
+            }
           }
-        })
+        }),
+        queryResult.data.registryDatas[0]?.aggregatorAddress ?? '0x0000000000000000000000000000000000000000'
       )
     )
   } catch (e: any) {
@@ -81,7 +94,7 @@ function* handleCreateThirdPartyRequest({ payload: { createThirdParty } }: Creat
 
     const { urn, metadata, resolver, managers, slots } = createThirdParty
 
-    const txHash: string = yield call(sendTransaction, contract, (tpr) =>
+    const txHash: string = yield call(sendTransaction, contract, tpr =>
       tpr.addThirdParties([[urn, metadata, resolver, managers, [], slots]])
     )
 
@@ -98,8 +111,7 @@ function* handleUpdateThirdPartyRequest({ payload: { updateThirdParty } }: Updat
     const contract = getContract(contractName, chainId)
 
     const { urn, metadata, resolver, managers, managerValues, slots } = updateThirdParty
-
-    const txHash: string = yield call(sendTransaction, contract, (tpr) =>
+    const txHash: string = yield call(sendTransaction, contract, tpr =>
       tpr.updateThirdParties([[urn, metadata, resolver, managers, managerValues, slots]])
     )
 

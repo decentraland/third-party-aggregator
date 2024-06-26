@@ -1,3 +1,3 @@
-import ThirdParties from "./ThirdParties.container";
+import ThirdParties from './ThirdParties.container'
 
-export default ThirdParties;
+export default ThirdParties

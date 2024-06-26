@@ -2,6 +2,7 @@ import {
   ThirdParty,
   UpdateThirdParty,
 } from "../../../modules/thirdParty/types";
+import { buildMetadata } from "../../../modules/thirdParty/utils";
 import { UpdateThirdPartyFormData } from "./UpdateThirdPartyForm.types";
 
 export const toUpdateThirdParty = (
@@ -40,6 +41,6 @@ export const toUpdateThirdParty = (
     slots: data.slots,
     managers,
     managerValues,
-    metadata: `tp:1:${data.name}:${data.description}`,
+    metadata: buildMetadata(data),
   };
 };

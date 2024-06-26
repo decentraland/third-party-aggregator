@@ -1,9 +1,10 @@
-import { ThirdParty } from "../../modules/thirdParty/types";
+import { ThirdParty } from '../../modules/thirdParty/types'
 
 export type Props = {
-  thirdParties: ThirdParty[];
-  isLoading: boolean;
-};
+  thirdParties: ThirdParty[]
+  isAggregator: boolean
+  userAddress: string | undefined
+  isLoading: boolean
+}
 
-export type MapStateProps = Pick<Props, "thirdParties" | "isLoading">;
-export type MapDispatchProps = {};
+export type MapStateProps = Pick<Props, 'thirdParties' | 'isLoading' | 'isAggregator' | 'userAddress'>
