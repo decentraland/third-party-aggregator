@@ -31,7 +31,7 @@ const ThirdParties = ({ thirdParties, isLoading, isAggregator, userAddress }: Pr
   const thirdPartiesList = useMemo(
     () =>
       tableFilter === TABLE_FILTER.ALL ? thirdParties : userAddress ? thirdParties.filter(tp => tp.managers.includes(userAddress)) : [],
-    [tableFilter]
+    [tableFilter, userAddress, thirdParties]
   )
 
   return (
