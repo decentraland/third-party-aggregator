@@ -4,10 +4,10 @@ import { t } from 'decentraland-dapps/dist/modules/translation/utils'
 import { Link } from 'react-router-dom'
 import { Controller, useForm } from 'react-hook-form'
 import Page from '../Page'
-import { CreateThirdPartyFormData, Props } from './CreateThirdParty.types'
 import { locations } from '../../modules/locations'
-import { getUrn } from './utils'
 import ManagersField from '../ManagersField'
+import { CreateThirdPartyFormData, Props } from './CreateThirdParty.types'
+import { getUrn } from './utils'
 import './CreateThirdParty.css'
 
 const CreateThirdParty = ({ chainId, isLoading, onSubmit }: Props) => {
@@ -105,6 +105,7 @@ const CreateThirdParty = ({ chainId, isLoading, onSubmit }: Props) => {
           }}
           render={({ field, fieldState }) => (
             <ManagersField
+              onBlur={field.onBlur}
               managers={field.value}
               error={fieldState.error?.message}
               onChange={managers => field.onChange({ target: { value: managers } })}

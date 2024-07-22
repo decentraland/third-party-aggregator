@@ -26,11 +26,6 @@ export type GraphThirdParty = {
   }
 }
 
-export enum ThirdPartyVersion {
-  V1 = 1,
-  V2 = 2
-}
-
 export type ThirdPartyState = {
   data: { thirdParties: Record<string, ThirdParty>; aggregatorAddress: string }
   loading: LoadingState

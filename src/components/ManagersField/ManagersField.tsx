@@ -5,7 +5,7 @@ import { isAddress } from '../../modules/thirdParty/utils'
 import { Props } from './ManagersField.types'
 import './ManagersField.css'
 
-const ManagersField = ({ managers, error: providedError, onChange }: Props) => {
+const ManagersField = ({ managers, error: providedError, onChange, onBlur }: Props) => {
   const [error, setError] = useState('')
 
   return (
@@ -13,6 +13,7 @@ const ManagersField = ({ managers, error: providedError, onChange }: Props) => {
       <TagField
         label={t('managers_field.label')}
         value={managers}
+        onBlur={onBlur}
         onChange={(_, props) => {
           const values = props.value as string[]
           if (values.length > 0) {

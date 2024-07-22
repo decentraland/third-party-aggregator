@@ -1,4 +1,4 @@
-import { LinkedContract, ContractNetwork, Metadata, ThirdParty, ThirdPartyVersion } from './types'
+import { LinkedContract, ContractNetwork, Metadata } from './types'
 
 export const parseMetadata = (metadata: string): Pick<Metadata, 'name' | 'description' | 'contracts'> => {
   const [, , name, description, contracts] = metadata.split(':')
@@ -28,5 +28,4 @@ export const buildMetadata = (metadata: Pick<Metadata, 'name' | 'description' | 
 }
 
 export const isAddress = (address: string): boolean => /^0x[a-fA-F0-9]{40}$/.test(address)
-export const getThirdPartyVersion = (thirdParty: ThirdParty): number =>
-  thirdParty.id.split(':')[3] === 'collections-linked-wearables' ? ThirdPartyVersion.V2 : ThirdPartyVersion.V1
+export const isThirdPartyIdValid = (id: string): boolean => /^urn:decentraland:[a-z0-9-]+:collections-thirdparty:.+$/.test(id)
