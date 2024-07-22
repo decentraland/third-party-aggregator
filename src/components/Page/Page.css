@@ -1,4 +1,4 @@
 .Page {
   padding-top: 48px !important;
-  height: calc(100vh - 48px);
+  min-height: calc(100vh - 48px);
 }
