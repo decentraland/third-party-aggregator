@@ -21,6 +21,7 @@ import {
   UPDATE_THIRD_PARTY_SUCCESS
 } from './action'
 import { ThirdParty, ThirdPartyState } from './types'
+import { isThirdPartyIdValid } from './utils'
 
 const INITAL_STATE: ThirdPartyState = {
   data: { thirdParties: {}, aggregatorAddress: '0x0000000000000000000000000000000000000000' },
@@ -58,10 +59,12 @@ export function thirdPartyReducer(state = INITAL_STATE, action: ThirdPartyReduce
         data: {
           thirdParties: {
             ...state.data.thirdParties,
-            ...thirdParties.reduce((acc, tp) => {
-              acc[tp.id] = tp
-              return acc
-            }, {} as Record<string, ThirdParty>)
+            ...thirdParties
+              .filter(tp => isThirdPartyIdValid(tp.id))
+              .reduce((acc, tp) => {
+                acc[tp.id] = tp
+                return acc
+              }, {} as Record<string, ThirdParty>)
           },
           aggregatorAddress
         },

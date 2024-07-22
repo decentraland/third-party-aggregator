@@ -28,3 +28,4 @@ export const buildMetadata = (metadata: Pick<Metadata, 'name' | 'description' | 
 }
 
 export const isAddress = (address: string): boolean => /^0x[a-fA-F0-9]{40}$/.test(address)
+export const isThirdPartyIdValid = (id: string): boolean => /^urn:decentraland:[a-z0-9-]+:collections-thirdparty:.+$/.test(id)
