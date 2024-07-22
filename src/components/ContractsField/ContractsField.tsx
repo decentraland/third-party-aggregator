@@ -20,9 +20,6 @@ export const ContractsField = (props: Props) => {
   const validateContract = useCallback(
     debounce(async (contractAddress: string, network: ContractNetwork) => {
       setIsCheckingContract(true)
-      if (!contractAddress || !isAddress(contractAddress)) {
-        setContractError(t('linked_contracts.required_address'))
-      }
       setContractError(undefined)
       const jsonRpcProvider = new providers.JsonRpcProvider(RPC_URLS[network])
       const erc165Contract = new Contract(
@@ -43,13 +40,13 @@ export const ContractsField = (props: Props) => {
           )
         }
       } catch (error) {
-        setContractError('There was an error checking the contract. Please try again later.')
+        setContractError('There was an error checking the contract. The contract might not exist or the connection might be down.')
         console.error(error)
       } finally {
         setIsCheckingContract(false)
       }
-    }, 400),
-    []
+    }, 1000),
+    [setIsCheckingContract, setContractError]
   )
 
   const networkOptions = useMemo(
@@ -61,7 +58,7 @@ export const ContractsField = (props: Props) => {
   )
 
   const handleAdd = useCallback(() => {
-    onChange({ address, network } as LinkedContract)
+    onChange({ address: address?.toLowerCase(), network } as LinkedContract)
     setAddress('')
     setNetwork(ContractNetwork.ETHEREUM_MAINNET)
   }, [onChange, address, network])
@@ -69,14 +66,19 @@ export const ContractsField = (props: Props) => {
   const handleChangeNetwork = useCallback(
     (_e: React.SyntheticEvent<HTMLElement, Event>, data: DropdownProps) => {
       setNetwork(data.value as ContractNetwork)
+      if (address && isAddress(address)) {
+        validateContract(address, data.value)
+      }
     },
-    [setNetwork]
+    [setNetwork, validateContract, address]
   )
 
   const handleChangeContract = useCallback(
     (_e: React.ChangeEvent<HTMLInputElement>, data: InputOnChangeData) => {
-      setContractError(undefined)
       setAddress(data.value)
+      if (!isAddress(data.value)) {
+        return setContractError(t('linked_contracts.required_address'))
+      }
       validateContract(data.value, network)
     },
     [setAddress, validateContract, network]
@@ -97,7 +99,8 @@ export const ContractsField = (props: Props) => {
         onChange={handleChangeContract}
         loading={isCheckingContract}
         maxLength={42}
-        type="address"
+        message={contractError}
+        error={!!contractError}
       />
       <Button disabled={!!contractError || !address || disabled || isCheckingContract} onClick={handleAdd}>
         {t('linked_contracts.add_contract')}

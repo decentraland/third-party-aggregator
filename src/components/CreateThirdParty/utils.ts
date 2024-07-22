@@ -16,7 +16,7 @@ export const toCreateThirdParty = (data: CreateThirdPartyFormData, chainId: Chai
 export const getUrn = (thirdPartyName: string, chainId: ChainId) => {
   const protocol = getURNProtocol(chainId)
   const name = formatThirdPartyName(thirdPartyName)
-  return `urn:decentraland:${protocol}:collections-linked-wearables:${name}`
+  return `urn:decentraland:${protocol}:collections-thirdparty:${name}`
 }
 
 export const formatThirdPartyName = (value: string) => {

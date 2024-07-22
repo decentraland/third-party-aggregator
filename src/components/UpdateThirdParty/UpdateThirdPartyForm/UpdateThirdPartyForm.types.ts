@@ -13,9 +13,10 @@ export type Props = {
   thirdParty: ThirdParty
   isUpdating: boolean
   canUpdate: boolean
+  isThirdPartyV2Enabled: boolean
   onUpdateThirdParty: (data: UpdateThirdPartyFormData) => void
 }
 
-export type MapStateProps = Pick<Props, 'isUpdating' | 'canUpdate'>
+export type MapStateProps = Pick<Props, 'isUpdating' | 'canUpdate' | 'isThirdPartyV2Enabled'>
 export type MapDispatchProps = Pick<Props, 'onUpdateThirdParty'>
 export type OwnProps = Pick<Props, 'thirdParty'>
