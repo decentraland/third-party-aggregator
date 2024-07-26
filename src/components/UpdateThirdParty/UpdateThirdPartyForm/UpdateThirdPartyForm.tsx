@@ -16,7 +16,7 @@ const UpdateThirdPartyForm = ({ thirdParty, canUpdate, isUpdating, isThirdPartyV
       name: thirdParty?.metadata.name ?? '',
       description: thirdParty?.metadata.description ?? '',
       contracts: thirdParty?.metadata.contracts ?? [],
-      resolver: thirdParty?.resolver ?? '',
+      resolver: thirdParty?.resolver ?? 'Disabled',
       slots: '0',
       managers: thirdParty?.managers ?? []
     }
@@ -95,6 +95,10 @@ const UpdateThirdPartyForm = ({ thirdParty, canUpdate, isUpdating, isThirdPartyV
         control={control}
         rules={{
           validate: (value: string) => {
+            if (value === 'Disabled') {
+              return true
+            }
+
             if (!/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_+.~#?&//=]*)/.test(value)) {
               return t('update_third_party.required_valid_url')
             }

@@ -4,7 +4,7 @@ export type ThirdParty = {
   id: string
   managers: string[]
   rawMetadata: string
-  resolver: string
+  resolver: string | null
   isApproved: boolean
   maxItems: string
   root: string
