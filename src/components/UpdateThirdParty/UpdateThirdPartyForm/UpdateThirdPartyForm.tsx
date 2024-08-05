@@ -71,10 +71,18 @@ const UpdateThirdPartyForm = ({ thirdParty, canUpdate, isUpdating, isThirdPartyV
           control={control}
           rules={{
             validate: (contracts: LinkedContract[]) => {
-              for (const contract of contracts) {
-                if (contracts.some(c => c.address === contract.address && c.network === contract.network)) {
-                  return 'There are duplicated contracts in the list'
-                }
+              const hasDuplicated = contracts.reduce((acc, contract, index, contracts) => {
+                return (
+                  acc ||
+                  contracts.some(
+                    (anotherContract, anotherIndex) =>
+                      anotherContract.address === contract.address && anotherContract.network === contract.network && index !== anotherIndex
+                  )
+                )
+              }, false)
+
+              if (hasDuplicated) {
+                return 'There are duplicated contracts in the list'
               }
             }
           }}

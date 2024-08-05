@@ -5,7 +5,7 @@ import { FeatureName } from './types'
 
 export const getIsLinkedWearablesV2Enabled = (state: RootState) => {
   try {
-    return getIsFeatureEnabled(state, ApplicationName.BUILDER, FeatureName.LINKED_WEARABLES_V2)
+    return getIsFeatureEnabled(state, ApplicationName.BUILDER, FeatureName.LINKED_WEARABLES_V2) || true
   } catch (e) {
     return false
   }
