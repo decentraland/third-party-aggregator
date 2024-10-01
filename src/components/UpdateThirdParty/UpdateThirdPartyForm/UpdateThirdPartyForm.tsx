@@ -2,12 +2,12 @@ import React from 'react'
 import { Button, Field, Header } from 'decentraland-ui'
 import { t } from 'decentraland-dapps/dist/modules/translation/utils'
 import { Controller, useForm } from 'react-hook-form'
-import { UpdateThirdPartyFormData, Props } from './UpdateThirdPartyForm.types'
-import './UpdateThirdPartyForm.css'
 import ManagersField from '../../ManagersField'
 import { ContractsTable } from '../../ContractsTable'
 import { ContractsField } from '../../ContractsField'
 import { LinkedContract } from '../../../modules/thirdParty/types'
+import { UpdateThirdPartyFormData, Props } from './UpdateThirdPartyForm.types'
+import './UpdateThirdPartyForm.css'
 
 const UpdateThirdPartyForm = ({ thirdParty, canUpdate, isUpdating, isThirdPartyV2Enabled, onUpdateThirdParty }: Props) => {
   const { control, handleSubmit } = useForm<UpdateThirdPartyFormData>({
@@ -89,7 +89,20 @@ const UpdateThirdPartyForm = ({ thirdParty, canUpdate, isUpdating, isThirdPartyV
           render={({ field, fieldState }) => (
             <>
               <Header sub>{t('update_third_party.contracts')}</Header>
-              <ContractsTable contracts={field.value} message={fieldState.error?.message} error={fieldState.invalid} />
+              <ContractsTable
+                disabled={field.disabled}
+                onDelete={(contract: LinkedContract) =>
+                  field.onChange(
+                    field.value.filter(
+                      oldContract =>
+                        !(oldContract.address.toLowerCase() === contract.address.toLowerCase() && oldContract.network === contract.network)
+                    )
+                  )
+                }
+                contracts={field.value}
+                message={fieldState.error?.message}
+                error={fieldState.invalid}
+              />
               <ContractsField
                 disabled={field.disabled}
                 onChange={(contract: LinkedContract) => field.onChange(field.value.concat(contract))}
